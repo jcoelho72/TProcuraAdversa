@@ -130,10 +130,15 @@
     <ClCompile Include="Teste\JogoDoGalo.cpp" />
     <ClCompile Include="Teste\teste.cpp" />
     <ClCompile Include="TProcuraAdversa.cpp" />
+    <ClCompile Include="TProcuraConstrutiva\TProcuraConstrutiva.cpp" />
+    <ClCompile Include="TProcuraConstrutiva\TRand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Teste\JogoDoGalo.h" />
     <ClInclude Include="TProcuraAdversa.h" />
+    <ClInclude Include="TProcuraConstrutiva\TProcuraConstrutiva.h" />
+    <ClInclude Include="TProcuraConstrutiva\TRand.h" />
+    <ClInclude Include="TProcuraConstrutiva\TVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

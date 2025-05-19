@@ -8,6 +8,8 @@ int TProcuraAdversa::infinito = 1000;
 bool TProcuraAdversa::completo;
 // hashtable / valor e nível obtido
 TValorEstado TProcuraAdversa::valorHT[TAMANHO_HASHTABLE];
+// profundidade máxima no método iterativo
+int TProcuraAdversa::nivelOK = 0;
 
 
 TProcuraAdversa::TProcuraAdversa(void) : minimizar(true), indiceHT(-1)
@@ -26,15 +28,15 @@ void TProcuraAdversa::ResetParametros()
 
 	// adicionar parâmetros da procura adversa
 	// alterar algoritmos
-	parametro[algoritmo] = { 1,1,2,"Algoritmo","Seleção do algoritmo de procura adversa base.", nomesAlgoritmos };
+	parametro[algoritmo] = { "Algoritmo",1,1,2,"Seleção do algoritmo de procura adversa base.", nomesAlgoritmos };
 
 	parametro[limite].valor = 0; // procura iterativa preferencial
 
 	// O "infinito" é dependente do problema, não faz sentido alterar senão no código
-	parametro.Add({ 0,0,2, "Ordenar","0 não ordena sucessores, 1 ordena por heurística, 2 usa o melhor valor de procuras anteriores.",NULL });
-	parametro.Add({ 0,0,1000, "Podar","0 não existe poda, caso contrário é o número máximo de sucessores a considerar (tem de se ordenar sucessores).",NULL });
+	parametro.Add({ "Ordenar",0,0,2, "0 não ordena sucessores, 1 ordena por heurística, 2 usa o melhor valor de procuras anteriores.",NULL });
+	parametro.Add({ "PodaHeuristica",0,0,1000, "0 não existe poda, caso contrário é o número máximo de sucessores a considerar (tem de se ordenar sucessores).",NULL });
+	parametro.Add({ "PodaCega",0,0,10000, "Igual a PodaHeuristica, mas é efetuado de forma aleátoria, sem calcular a heurística. Utilizar um valor sempre maior que Poda. ",NULL });
 
-	// podarSucessores
 }
 
 
@@ -110,6 +112,18 @@ int TProcuraAdversa::MiniMax(int nivel)
 void TProcuraAdversa::OrdenarSucessores(
 	TVector<TNo>& sucessores, TVector<int>& id, int nivel) 
 {
+	if (parametro[podaCega].valor > 0 && 
+		sucessores.Count() > parametro[podaCega].valor) 
+	{
+		// podar de forma aleatória, nem heurística deve ser calculada
+		while (sucessores.Count() > parametro[podaCega].valor) {
+			int id = TRand::rand() % sucessores.Count();
+			delete sucessores[id];
+			sucessores[id] = sucessores.Last();
+			sucessores.Pop();
+		}
+	}
+
 	id.Count(0);
 	if (nivel>2 && parametro[ordenarSucessores].valor >= 1) {
 		if (parametro[limite].valor != 0) // não é iterativo
@@ -133,12 +147,12 @@ void TProcuraAdversa::OrdenarSucessores(
 			id.Invert();
 
 		// podar sucessores
-		if (parametro[podarSucessores].valor > 0 &&
-			parametro[podarSucessores].valor < id.Count()) {
+		if (parametro[podaHeuristica].valor > 0 &&
+			parametro[podaHeuristica].valor < id.Count()) {
 			TVector<TNo> manterSuc;
-			for (int i = 0; i < parametro[podarSucessores].valor; i++)
+			for (int i = 0; i < parametro[podaHeuristica].valor; i++)
 				manterSuc.Add(sucessores[id[i]]);
-			for (int i = parametro[podarSucessores].valor; i < id.Count(); i++) 
+			for (int i = parametro[podaHeuristica].valor; i < id.Count(); i++) 
 				delete sucessores[id[i]];
 			sucessores = manterSuc;
 			id.Count(0);
@@ -155,19 +169,21 @@ void TProcuraAdversa::OrdenarSucessores(
 // iteração, aumentando o nível progressivamente
 int TProcuraAdversa::MetodoIterativo(int alfaBeta) {
 	int resultado = 0, resOK = 0, nivel = 0;
+	nivelOK = 0;
 	TProcuraConstrutiva* solOK = NULL;
 	do {
 		DebugIteracao(nivel + 1);
 		completo = true;
 		// chamar a profundidade nível 1, e se não resolver, o nível 2, e assim sucessivamente
 		resultado = (alfaBeta ? MiniMaxAlfaBeta(++nivel) : MiniMax(++nivel));
-		if (!Parar()) { 
+		if (!Parar() || nivel == 0) {
 			// guardar a última solução realizada sem interrupções, bem como o resultado
 			if (solOK != NULL)
 				delete solOK;
 			solOK = solucao;
 			solucao = NULL;
 			resOK = resultado;
+			nivelOK = nivel;
 			if (parametro[nivelDebug].valor > 0 && solOK != NULL)
 				printf("\n%d: %s (%d)", nivel, Acao(solOK), resultado);
 		}
@@ -198,12 +214,22 @@ int TProcuraAdversa::NoFolha(bool nivel, int valor) {
 	} else
 		resultado = Heuristica();
 
-	// mais vale perder mais tarde que mais cedo
-	// os estados mais profundos têm valor menor
-	if (resultado >= infinito)
-		resultado = infinito + valor; // ? deveria ser ao contrário infinito - valor
-	else if (resultado <= -infinito)
-		resultado = -infinito - valor; // ? deveria ser valor - infinito 
+	if (resultado >= infinito) {
+		resultado = infinito + valor; // subtrair
+		// jogo ganho pelo branco
+		// se o agente minimiza, tentar o jogo mais longo possível
+		// caso contrário, quanto maior o jogo pior, quer o jogo mais curto
+		// a minimizar, entre um nível 10 e 20, irá preferir o 20, já que -20 é menor que -10
+		// a maximizar, entre um nível 10 e 20, irá preferir o 10, já que 10 é menor que 20
+	}
+	else if (resultado <= -infinito) {
+		resultado = -valor - infinito; // somar
+		// jogo ganho pelo preto
+		// se o agente maximiza, tentar o jogo mais longo possível
+		// caso contrário, quanto maior o jogo pior, quer o jogo mais curto
+		// a maximizar, entre 10 e 20, irá preferir 20, sempre é maior
+		// a minimizar, entre 10 e 20, irá preferir 10 que é menor
+	}
 	if (parametro[nivelDebug].valor > 1)
 		printf(" %d", resultado);
 	return resultado;
@@ -424,6 +450,22 @@ void TProcuraAdversa::SubstituirHT(int indice) {
 	TProcuraConstrutiva::SubstituirHT(indice);
 	valorHT[indiceHT = indice].nivel = -1;
 }
+
+bool TProcuraAdversa::ExisteHT() {
+	// caso não exista, retorna falso e insere
+	// se existe retorna falso à mesma para não remover, dado que é uma alternativa para este lance concreto
+	// se estiver lá outro elemento, substitui
+	unsigned int original = Hash();
+	unsigned int indice = original % TAMANHO_HASHTABLE;
+	for (int i = 0; i < tamanhoCodificado; i++)
+		if (elementosHT[indice][i] != estadoCodHT[i]) {
+			SubstituirHT(indice);
+			return false; // não existia
+		}
+	indiceHT = indice;
+	return false; // é como se não existisse, mas está lá
+}
+
 
 bool TProcuraAdversa::ValorEstado(TValorEstado& valor, int operacao) {
 	if (operacao == ler) {

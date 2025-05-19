@@ -1,11 +1,11 @@
 ﻿#pragma once
-#include "TProcuraConstrutiva.h"
+#include "TProcuraConstrutiva/TProcuraConstrutiva.h"
 
-enum { ordenarSucessores = parametrosConstrutivas,
-	podarSucessores, parametrosAdversas };
+enum EParametrosAdversa { ordenarSucessores = parametrosConstrutivas,
+	podaHeuristica, podaCega, parametrosAdversas };
 
 // registo do valor de um estado, em procuras anteriores 
-typedef struct {
+typedef struct SValorEstado {
 	int valor;
 	int nivel; // 0 - valor heurístico, -1 - inválido
 } TValorEstado;
@@ -33,6 +33,9 @@ public:
 	static int infinito;
 	// controlo para indicar se a procura foi realizada de forma completa (c.c. foi cortada)
 	static bool completo;
+	// profundidade máxima no método iterativo
+	static int nivelOK;
+
 public:
 	TProcuraAdversa(void);
 	~TProcuraAdversa(void);
@@ -58,6 +61,8 @@ public:
 	// Efetua um torneio entre configurações
 	void TesteEmpirico(int inicio = -1, int fim = -1, bool mostrarSolucoes = true);
 
+	int ExecutaAlgoritmo();
+
 protected:
 	// fim da procura, por corte de nível (ou não haver sucessores), retornar heurística
 	int NoFolha(bool nivel, int valor); 
@@ -68,12 +73,12 @@ protected:
 	// iteração, aumentando o nível progressivamente
 	int MetodoIterativo(int alfaBeta);
 
-	int ExecutaAlgoritmo();
 
 	void OrdenarSucessores(TVector<TNo>& sucessores, TVector<int>& id, int nivel);
 
 	// hashtable
 	void SubstituirHT(int indice); // necessário redefinir para invalidar valorHT 
+	bool ExisteHT(); // necessário redefinir par não remover estados (reutilizar o valor)
 	static TValorEstado valorHT[TAMANHO_HASHTABLE]; // hashtable / valor e nível obtido
 	// índice obtido na HT, se positivo
 	int indiceHT;

@@ -129,7 +129,7 @@ void CJogoDoGalo::Debug(void)
 
 void CJogoDoGalo::TesteManual(const char* nome)
 {
-	instancia = { 1,1,1, NULL, NULL, NULL };
+	instancia = { NULL, 1,1,1, NULL, NULL };
 	TProcuraAdversa::TesteManual(nome);
 }
 

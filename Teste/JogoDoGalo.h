@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "TProcuraAdversa.h"
+#include "../TProcuraAdversa.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //	CJogoDoGalo class
