@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Teste\JogoEmLinha.cpp" />
     <ClCompile Include="Teste\JogoDoGalo.cpp" />
     <ClCompile Include="Teste\teste.cpp" />
     <ClCompile Include="TProcuraAdversa.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="TProcuraConstrutiva\TRand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Teste\JogoEmLinha.h" />
     <ClInclude Include="Teste\JogoDoGalo.h" />
     <ClInclude Include="TProcuraAdversa.h" />
     <ClInclude Include="TProcuraConstrutiva\TProcuraConstrutiva.h" />

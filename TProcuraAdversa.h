@@ -4,10 +4,18 @@
 enum EParametrosAdversa { ordenarSucessores = parametrosConstrutivas,
 	podaHeuristica, podaCega, parametrosAdversas };
 
+// tipo de valor resultante do minimax com cortes alfa/beta
+enum ETipoValor { 
+	exato, // o valor foi calculado sem cortes, ou seja, não sofreu influência de alfa ou beta;
+	lowerbound, // o valor foi afetado por um corte de beta (ou seja, ele é pelo menos esse valor, mas pode ser maior);
+	upperbound // o valor foi afetado por um corte de alfa (ou seja, ele é no máximo esse valor, mas pode ser menor).
+};
+
 // registo do valor de um estado, em procuras anteriores 
 typedef struct SValorEstado {
 	int valor;
 	int nivel; // 0 - valor heurístico, -1 - inválido
+	ETipoValor tipo; 
 } TValorEstado;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -63,9 +71,20 @@ public:
 
 	int ExecutaAlgoritmo();
 
+	int Heuristica(void);
+
+	// chamar em CSubProblema::Heuristica() para verificar se a heurística já existe, ou precisa de ser calculada
+	bool ExisteHeuritica(void);
+
+	// Utilitário para calculo de uma heurística standard em jogos simples (tipicamente sem empates):
+	// - calcular o número de ameaças de vitória, para cada lado, de menor comprimento:
+    //   - qMin - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+    //   - qMax - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+	int MaiorAmeaca(TVector<int>& qMin, TVector<int>& qMax, int maxAmeaca);
+
 protected:
 	// fim da procura, por corte de nível (ou não haver sucessores), retornar heurística
-	int NoFolha(bool nivel, int valor); 
+	int NoFolha(bool nivel); 
 
 	// verifica se há um corte alfa/beta, atualizando alfa e beta
 	bool CorteAlfaBeta(int valor, int& alfa, int& beta);
@@ -84,4 +103,6 @@ protected:
 	int indiceHT;
 	// ler ou gravar o melhor valor conhecido
 	bool ValorEstado(TValorEstado& valor, int operacao);
+
+	bool Utilizavel(TValorEstado& valor, int nivel, int alfa, int beta);
 };

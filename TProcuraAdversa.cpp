@@ -1,6 +1,7 @@
 ﻿#include "TProcuraAdversa.h"
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 
 // valor de infinito (vitoria/derrota), omissao 1000
 int TProcuraAdversa::infinito = 1000;
@@ -31,12 +32,13 @@ void TProcuraAdversa::ResetParametros()
 	parametro[algoritmo] = { "Algoritmo",1,1,2,"Seleção do algoritmo de procura adversa base.", nomesAlgoritmos };
 
 	parametro[limite].valor = 0; // procura iterativa preferencial
+	parametro[estadosRepetidos].valor = 1; // nas procuras adversas, não utilizar este parametro (utilizar ordenar=2)
+	parametro[baralharSuc].valor = 1; // obter jogos distintos
 
 	// O "infinito" é dependente do problema, não faz sentido alterar senão no código
-	parametro.Add({ "Ordenar",0,0,2, "0 não ordena sucessores, 1 ordena por heurística, 2 usa o melhor valor de procuras anteriores.",NULL });
+	parametro.Add({ "Ordenar",2,0,2, "0 não ordena sucessores, 1 ordena por heurística, 2 usa o melhor valor de procuras anteriores.",NULL });
 	parametro.Add({ "PodaHeuristica",0,0,1000, "0 não existe poda, caso contrário é o número máximo de sucessores a considerar (tem de se ordenar sucessores).",NULL });
 	parametro.Add({ "PodaCega",0,0,10000, "Igual a PodaHeuristica, mas é efetuado de forma aleátoria, sem calcular a heurística. Utilizar um valor sempre maior que Poda. ",NULL });
-
 }
 
 
@@ -50,7 +52,7 @@ int TProcuraAdversa::MiniMax(int nivel)
 	// no final da árvore, retornar (valor da heuristica)
 	if (nivel == 1 || Parar()) {
 		completo = false; // árvore cortada, a procura deixa de ser completa
-		return NoFolha(true, nivel);
+		return NoFolha(true);
 	}
 
 	if (nivel == 0)
@@ -61,7 +63,7 @@ int TProcuraAdversa::MiniMax(int nivel)
 	Sucessores(sucessores);
 	// caso não existam sucessores, é como se fosse um nó folha
 	if (sucessores.Count() == 0)
-		return NoFolha(false,nivel);
+		return NoFolha(false);
 
 	TVector<int> id; // índice para ordenar os sucessores por heurística
 	OrdenarSucessores(sucessores, id, nivel);
@@ -73,19 +75,16 @@ int TProcuraAdversa::MiniMax(int nivel)
 		int valor;
 		TValorEstado valorConhecido;
 
-		if (parametro[ordenarSucessores].valor == 2 &&
-			((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, ler) &&
-			valorConhecido.nivel >= nivel - 1) 
+		if (((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, ler) &&
+			valorConhecido.nivel >= nivel) 
 		{
 			valor = valorConhecido.valor;
 		} 
 		else {
 			// chamada recursiva, com um nível a menos, idêntico à procura em profundidade
 			valor = ((TProcuraAdversa*)sucessores[id[i]])->MiniMax(nivel - 1);
-			if (parametro[ordenarSucessores].valor == 2) {
-				valorConhecido = { valor, nivel - 1 };
-				((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, gravar);
-			}
+			valorConhecido = { valor, nivel, exato };
+			((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, gravar);
 		}
 
 		// pretende-se obter o melhor resultado, que oscila entre minimizar ou maximizar
@@ -96,6 +95,8 @@ int TProcuraAdversa::MiniMax(int nivel)
 				NovaLinha();
 				printf("(%d)", resultado);
 			}
+			if (minimizar ? resultado <= custo + 1 - infinito : resultado >= infinito - custo - 1)
+				break; // nao e possivel melhorar
 		}
 	}
 	// todos os sucessores analizados, se houver uma solução melhor, retornar
@@ -107,6 +108,25 @@ int TProcuraAdversa::MiniMax(int nivel)
 	DebugCorte(sucessores.Count(),minimizar);
 	LibertarVector(sucessores, melhor);
 	return resultado;
+}
+
+int TProcuraAdversa::Heuristica(void) {
+	TValorEstado calculado;
+	heuristica = TProcuraConstrutiva::Heuristica(); // incrementa avaliações e adiciona ruído se for caso disso
+	// valor da heurística já calculado, gravar
+	calculado = { heuristica,0,exato }; // valor da heurística com nível 0
+	ValorEstado(calculado, gravar);
+	return heuristica;
+}
+
+// chamar em CSubProblema::Heuristica() para verificar se a heurística já existe, ou precisa de ser calculada
+bool TProcuraAdversa::ExisteHeuritica(void) {
+	TValorEstado calculado;
+	if (ValorEstado(calculado, ler)) {
+		heuristica = calculado.valor;
+		return true;
+	}
+	return false;
 }
 
 void TProcuraAdversa::OrdenarSucessores(
@@ -126,22 +146,7 @@ void TProcuraAdversa::OrdenarSucessores(
 
 	id.Count(0);
 	if (nivel>2 && parametro[ordenarSucessores].valor >= 1) {
-		if (parametro[limite].valor != 0) // não é iterativo
-			CalcularHeuristicas(sucessores, &id); // id fica ordenado por heurística
-		else { // iterativo
-			// obter heurísticas da HT
-			TValorEstado valorConhecido;
-			TVector<int> heuristicas;
-			// obter os valores conhecidos, e utilizar na heurística
-			for (int i = 0; i < sucessores.Count(); i++) {
-				if (((TProcuraAdversa*)sucessores[i])->ValorEstado(valorConhecido, ler)) 
-					sucessores[i]->heuristica = valorConhecido.valor;
-				else
-					sucessores[i]->heuristica = sucessores[i]->Heuristica();
-				heuristicas.Add(sucessores[i]->heuristica);
-			}
-			heuristicas.Sort(&id); // ordenar id
-		}
+		CalcularHeuristicas(sucessores, &id); // id fica ordenado por heurística
 
 		if (!minimizar)
 			id.Invert();
@@ -170,7 +175,7 @@ void TProcuraAdversa::OrdenarSucessores(
 int TProcuraAdversa::MetodoIterativo(int alfaBeta) {
 	int resultado = 0, resOK = 0, nivel = 0;
 	nivelOK = 0;
-	TProcuraConstrutiva* solOK = NULL;
+	TNo solOK = NULL;
 	do {
 		DebugIteracao(nivel + 1);
 		completo = true;
@@ -196,26 +201,49 @@ int TProcuraAdversa::MetodoIterativo(int alfaBeta) {
 	return resOK;
 }
 
+// Utilitário para calculo de uma heurística standard em jogos simples (tipicamente sem empates):
+// - calcular o número de ameaças de vitória, para cada lado, de menor comprimento:
+//   - qMin - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+//   - qMax - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+int TProcuraAdversa::MaiorAmeaca(TVector<int>& qMin, TVector<int>& qMax, int maxAmeaca)
+{
+	int pontos = 0, peso = 1;
+
+	// verificar situações de ganho imediato
+	if (!minimizar && qMax.First() > 0)
+		return infinito;  // Vitória imediata para o max
+	if (minimizar && qMin.First() > 0)
+		return -infinito; // Vitória imediata para o min 
+
+	// Ameaças iguais a maxAmeaca ou superior, valem 1, todas as outras valem conforme 
+	if (maxAmeaca > qMin.Count())
+		peso <<= (maxAmeaca - qMin.Count());
+	for (int i = qMin.Count() - 1, peso = 1; i >= 0; i--) {
+		pontos -= qMin[i] * peso;
+		if (i < maxAmeaca) // peço começa a duplicar
+			peso <<= 1;
+	}
+	peso = 1;
+	if (maxAmeaca > qMax.Count())
+		peso <<= (maxAmeaca - qMin.Count());
+	for (int i = qMax.Count() - 1, peso = 1; i >= 0; i--) {
+		pontos += qMax[i] * peso;
+		if (i < maxAmeaca) // peço começa a duplicar
+			peso <<= 1;
+	}
+
+	return infinito * (2 / (1 + exp(-0.01 * pontos)) - 1);
+}
 
 // fim da procura, por corte de nível (ou não haver sucessores), retornar heurística
-int TProcuraAdversa::NoFolha(bool nivel, int valor) {
+int TProcuraAdversa::NoFolha(bool nivel) {
 	int resultado;
-	TValorEstado valorConhecido;
 	DebugCorte(nivel ? -1 : 0, minimizar);
 
-	if (parametro[ordenarSucessores].valor == 2) {
-		if (!ValorEstado(valorConhecido, ler)) {
-			resultado = Heuristica();
-			valorConhecido = { resultado,0 };
-			ValorEstado(valorConhecido, gravar);
-		}
-		else
-			resultado = heuristica = valorConhecido.valor;
-	} else
-		resultado = Heuristica();
+	resultado = Heuristica();
 
 	if (resultado >= infinito) {
-		resultado = infinito + valor; // subtrair
+		resultado = infinito - custo; // subtrair
 		// jogo ganho pelo branco
 		// se o agente minimiza, tentar o jogo mais longo possível
 		// caso contrário, quanto maior o jogo pior, quer o jogo mais curto
@@ -223,7 +251,7 @@ int TProcuraAdversa::NoFolha(bool nivel, int valor) {
 		// a maximizar, entre um nível 10 e 20, irá preferir o 10, já que 10 é menor que 20
 	}
 	else if (resultado <= -infinito) {
-		resultado = -valor - infinito; // somar
+		resultado = custo - infinito; // somar
 		// jogo ganho pelo preto
 		// se o agente maximiza, tentar o jogo mais longo possível
 		// caso contrário, quanto maior o jogo pior, quer o jogo mais curto
@@ -245,7 +273,7 @@ int TProcuraAdversa::MiniMaxAlfaBeta(int nivel, int alfa, int beta)
 	DebugChamada();
 	if (nivel == 1 || Parar()) {
 		completo = false; 
-		return NoFolha(true, nivel);
+		return NoFolha(true);
 	}
 
 	if (nivel == 0)
@@ -254,7 +282,7 @@ int TProcuraAdversa::MiniMaxAlfaBeta(int nivel, int alfa, int beta)
 	TVector<TNo> sucessores;
 	Sucessores(sucessores);
 	if (sucessores.Count() == 0)
-		return NoFolha(false,nivel);
+		return NoFolha(false);
 
 	TVector<int> id; // índice para ordenar os sucessores por heurística
 	OrdenarSucessores(sucessores, id, nivel);
@@ -265,25 +293,28 @@ int TProcuraAdversa::MiniMaxAlfaBeta(int nivel, int alfa, int beta)
 		int valor;
 		TValorEstado valorConhecido;
 
-		if (parametro[ordenarSucessores].valor == 2 &&
-			((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, ler) &&
-			valorConhecido.nivel >= nivel - 1)
+		if (((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, ler) &&
+			Utilizavel(valorConhecido, nivel, alfa, beta))
 		{
 			valor = valorConhecido.valor;
 		}
 		else {
 			// chamada recursiva, com um nível a menos, idêntico à procura em profundidade
 			valor = ((TProcuraAdversa*)sucessores[id[i]])->MiniMaxAlfaBeta(nivel - 1, alfa, beta);
-			if (parametro[ordenarSucessores].valor == 2) {
-				valorConhecido = { valor, nivel - 1 };
-				((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, gravar);
-			}
+			valorConhecido = { valor, nivel, exato };
+			if (valor <= alfa)
+				valorConhecido.tipo = upperbound;  // Causado por corte alfa
+			else if (valor >= beta)
+				valorConhecido.tipo = lowerbound;  // Causado por corte beta
+			// registar valor apenas se estiver dentro de alfa/beta (para não influenciarem o resultado)
+			((TProcuraAdversa*)sucessores[id[i]])->ValorEstado(valorConhecido, gravar);
 		}
 
 		if (i == 0 || (minimizar ? resultado > valor : resultado < valor)) {
 			resultado = valor;
 			melhor = id[i];
-			if (nivel > 1 && parametro[nivelDebug].valor >= 2) { // colocar valor actual alterado
+			if (nivel > 1 && parametro[nivelDebug].valor >= 2) { 
+				// colocar valor actual alterado
 				NovaLinha();
 				printf("(%d)", resultado);
 			}
@@ -304,16 +335,27 @@ int TProcuraAdversa::MiniMaxAlfaBeta(int nivel, int alfa, int beta)
 	return resultado;
 }
 
+bool TProcuraAdversa::Utilizavel(TValorEstado& valor, int nivel, int alfa, int beta) {
+	return valor.nivel >= nivel &&
+		(valor.tipo == exato ||
+			valor.tipo == lowerBound && valor.valor >= beta ||
+			valor.tipo == upperbound && valor.valor <= alfa);
+}
+
+
 // verifica se há um corte alfa/beta, atualizando alfa e beta
 bool TProcuraAdversa::CorteAlfaBeta(int valor, int& alfa, int& beta) {
 	if (minimizar) { // pretas
+		// ver se ja e maximo
+		if (valor <= custo + 1 - infinito)
+			return true;
 		if (alfa >= valor) {
 			// corte alfa
 			if (parametro[nivelDebug].valor > 1) {
 				// substituir o ultimo caracter por um corte
 				ramo.Last() = '>';
 				NovaLinha();
-				printf(" alfa");
+				printf(" alfa(%d)",alfa);
 			}
 			return true; // as brancas tem uma alternativa, e escusado continuar a procurar aqui
 		}
@@ -322,12 +364,15 @@ bool TProcuraAdversa::CorteAlfaBeta(int valor, int& alfa, int& beta) {
 			beta = valor;
 	}
 	else { // brancas
+		// ver se atingiu o maximo
+		if (valor >= infinito - custo - 1)
+			return true;
 		if (beta <= valor) {
 			// corte beta
 			if (parametro[nivelDebug].valor > 1) {
 				ramo.Last() = '>';
 				NovaLinha();
-				printf(" beta");
+				printf(" beta(%d)",beta);
 			}
 			return true; // as pretas tem uma alternativa, e escusado continuar a procurar aqui
 		}
@@ -374,11 +419,11 @@ void TProcuraAdversa::TesteEmpirico(int inicio, int fim, bool mostrarSolucoes) {
 	for (int brancas = 0; brancas < configuracoes.Count(); brancas++)
 		for (int pretas = 0; pretas < configuracoes.Count(); pretas++)
 			if (brancas != pretas) {
-				if(mostrarSolucoes)
-					printf("\nMatch %d vs %d:", brancas + 1, pretas + 1);
+				printf("\nMatch %d vs %d:", brancas + 1, pretas + 1);
 				for (instancia.valor = inicio; instancia.valor <= fim; instancia.valor++) {
 					int resultado = -1, njogada=0;
 					clock_t inicioCorrida;
+					printf("\n Instância %d: ", instancia.valor);
 					// carregar instância
 					SolucaoVazia();
 					// jogar ora de brancas ora de pretas, até o jogo terminar
@@ -418,11 +463,10 @@ void TProcuraAdversa::TesteEmpirico(int inicio, int fim, bool mostrarSolucoes) {
 							(njogada % 2 == 1) && !minimizar;
 						// vitória/derrota branca/preta
 						torneio[brancas][pretas] += (resultado < 0 ? -1 : 1) * (inverter ? -1:1);
-						if (mostrarSolucoes)
-							printf("\nVitória %s", (inverter ? resultado < 0 : resultado > 0) ? "Branca" : "Preta");
+						printf(" Vitória %s", (inverter ? resultado < 0 : resultado > 0) ? "Branca" : "Preta");
 					}
-					else if(mostrarSolucoes)
-						printf("\nEmpate");
+					else 
+						printf(" Empate");
 				}
 			}
 
@@ -457,17 +501,21 @@ bool TProcuraAdversa::ExisteHT() {
 	// se estiver lá outro elemento, substitui
 	unsigned int original = Hash();
 	unsigned int indice = original % TAMANHO_HASHTABLE;
-	for (int i = 0; i < tamanhoCodificado; i++)
+	for (int i = 0; i < tamanhoCodificado; i++) {
 		if (elementosHT[indice][i] != estadoCodHT[i]) {
 			SubstituirHT(indice);
 			return false; // não existia
 		}
+	}
 	indiceHT = indice;
 	return false; // é como se não existisse, mas está lá
 }
 
 
 bool TProcuraAdversa::ValorEstado(TValorEstado& valor, int operacao) {
+	if (parametro[ordenarSucessores].valor != 2)
+		return false;
+	ExisteHT(); // calcula indiceHT
 	if (operacao == ler) {
 		if (indiceHT >= 0 && valorHT[indiceHT].nivel >= 0) {
 			valor = valorHT[indiceHT];
@@ -476,8 +524,9 @@ bool TProcuraAdversa::ValorEstado(TValorEstado& valor, int operacao) {
 		return false;
 	}
 	// gravar
-	if (indiceHT > 0 && valorHT[indiceHT].nivel < valor.nivel)
+	if (indiceHT >= 0 && valorHT[indiceHT].nivel < valor.nivel)
 		valorHT[indiceHT] = valor;
+
 	return true;
 }
 

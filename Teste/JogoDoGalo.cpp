@@ -29,6 +29,7 @@ void CJogoDoGalo::SolucaoVazia(void)
 {
 	TProcuraConstrutiva::SolucaoVazia();
 	minimizar = true;
+	tabuleiro.Count(9);
 	for (int i = 0; i < 9; i++)
 		tabuleiro[i] = '.';
 	tamanhoCodificado = 1; // 9 posições, 2 bits cada, 18 bits cabe em 64 bits
@@ -36,14 +37,15 @@ void CJogoDoGalo::SolucaoVazia(void)
 
 void CJogoDoGalo::Sucessores(TVector<TNo>&sucessores)
 {
+	CJogoDoGalo* novo;
 	if (!SolucaoCompleta()) {
 		for (int i = 0; i < 9; i++)
 			if (tabuleiro[i] == '.') {
-				sucessores.Add(Duplicar());
+				sucessores.Add(novo = (CJogoDoGalo*)Duplicar());
 				if (memoriaEsgotada)
 					return;
-				((CJogoDoGalo*)sucessores.Last())->minimizar = !minimizar;
-				((CJogoDoGalo*)sucessores.Last())->tabuleiro[i] = (minimizar ? 'x' : 'o');
+				novo->minimizar = !minimizar;
+				novo->tabuleiro[i] = (minimizar ? 'x' : 'o');
 			}
 		TProcuraAdversa::Sucessores(sucessores);
 	}
@@ -94,20 +96,6 @@ const char* CJogoDoGalo::Acao(TProcuraConstrutiva* sucessor) {
 	return str;
 }
 
-bool CJogoDoGalo::Acao(const char* acao) {
-	char coluna;
-	int linha;
-	if (sscanf(acao, "%c%d", &coluna, &linha) == 2) {
-		int indice = (linha - 1) * 3 + coluna - 'a';
-		if (indice >= 0 && indice < 9 && tabuleiro[indice]=='.') {
-			tabuleiro[indice] = (minimizar ? 'x' : 'o');
-			minimizar = !minimizar;
-			return true;
-		}
-	}
-	return false;
-}
-
 void CJogoDoGalo::Debug(void)
 {
 	NovaLinha(); // cabeçalho
@@ -135,26 +123,30 @@ void CJogoDoGalo::TesteManual(const char* nome)
 
 int CJogoDoGalo::Heuristica(void)
 {
-	TProcuraAdversa::Heuristica();
+	heuristica = 0;
+
+	if (ExisteHeuritica())
+		return heuristica;
+	
 	// jogo muito pequeno, fazer so o obrigatorio
 	// ver quem ganhou
 	for (int i = 0; i < 3; i++) // verificar todas as linhas
 		if (tabuleiro[i * 3] != '.' && 
 			tabuleiro[i * 3] == tabuleiro[i * 3 + 1] && 
-			tabuleiro[i * 3 + 2] == tabuleiro[i * 3 + 1])
-			return tabuleiro[i * 3] == 'x' ? -infinito : infinito;
+			tabuleiro[i * 3 + 2] == tabuleiro[i * 3 + 1]) 
+			heuristica = tabuleiro[i * 3] == 'x' ? -infinito : infinito;
 	for (int i = 0; i < 3; i++) // verificar todas as colunas
 		if (tabuleiro[i] != '.' && 
 			tabuleiro[i] == tabuleiro[i + 3] && 
 			tabuleiro[i + 6] == tabuleiro[i + 3])
-			return tabuleiro[i] == 'x' ? -infinito : infinito;
+			heuristica = tabuleiro[i] == 'x' ? -infinito : infinito;
 	// verificar diagonais
 	if (tabuleiro[0] != '.' && tabuleiro[0] == tabuleiro[4] && tabuleiro[4] == tabuleiro[8])
-		return tabuleiro[0] == 'x' ? -infinito : infinito;
+		heuristica = tabuleiro[0] == 'x' ? -infinito : infinito;
 	if (tabuleiro[2] != '.' && tabuleiro[2] == tabuleiro[4] && tabuleiro[4] == tabuleiro[6])
-		return tabuleiro[2] == 'x' ? -infinito : infinito;
+		heuristica = tabuleiro[2] == 'x' ? -infinito : infinito;
 	// ninguem ganhou, retornar 0
-	return 0;
+	return TProcuraAdversa::Heuristica();;
 }
 
 // estados repetidos num nível podem ser obtidos por ordens distintas de movimentos, para além das simetrias
@@ -165,7 +157,7 @@ void CJogoDoGalo::Codifica(uint64_t estado[OBJETO_HASHTABLE]) {
 	TProcuraConstrutiva::Codifica(estado);
 	// codificar números de 2 bits: ".xo"
 	for (int i = 0, index = 0; i < 9; i++, index += 2)
-		estado[index >> 6] |= (uint64_t)Codigo(tabuleiro[i]) << (index & 63);
+		estado[index >> 6] |= ((uint64_t)Codigo(tabuleiro[i])) << (index & 63);
 }
 
 // métodos de normalização de um estado

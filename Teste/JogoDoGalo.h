@@ -30,7 +30,6 @@ public:
 	bool SolucaoCompleta(void);
 	void Debug(void);
 	const char* Acao(TProcuraConstrutiva* sucessor);
-	bool Acao(const char* acao);
 	void TesteManual(const char* nome);
 	void Codifica(uint64_t estado[OBJETO_HASHTABLE]);
 	int Heuristica(void);
@@ -41,6 +40,6 @@ private:
 	int PesoVersao(TVector<char>& tabuleiro); // peso da versão do estado
 	void Simetria(TVector<char>& tabuleiro, int eixo); // aplica uma simetria
 	void Troca(char& a, char& b); // troca dois valores
-	int Codigo(char peca) { return peca == 'x' ? 1 : (peca == 'o' ? 2 : 0); }
+	int Codigo(char peca) { return peca == 'x' ? 1 : (peca == 'o' ? 2 : 3); }
 	int Indice(int i, int j) { return i * 3 + j; }
 };
