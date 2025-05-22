@@ -1,67 +1,71 @@
 ﻿#pragma once
 #include "TProcuraConstrutiva/TProcuraConstrutiva.h"
 
-enum EParametrosAdversa { ordenarSucessores = parametrosConstrutivas,
-	podaHeuristica, podaCega, parametrosAdversas };
-
-// tipo de valor resultante do minimax com cortes alfa/beta
-enum ETipoValor { 
-	exato, // o valor foi calculado sem cortes, ou seja, não sofreu influência de alfa ou beta;
-	lowerbound, // o valor foi afetado por um corte de beta (ou seja, ele é pelo menos esse valor, mas pode ser maior);
-	upperbound // o valor foi afetado por um corte de alfa (ou seja, ele é no máximo esse valor, mas pode ser menor).
+/**
+* @enum EParametrosAdversa
+* @brief Identifica um parâmetro específico no código.
+*
+* Permite aceder a cada parâmetro sem precisar saber seu código numérico.
+* Esta enumeração continua de EParametrosConstrutiva
+* 
+* @see EParametrosConstrutiva
+*
+*/	
+enum EParametrosAdversa { 
+	ordenarSucessores = parametrosConstrutivas, ///< opção de ordenar sucessores por heurística, ou por último valor registado
+	podaHeuristica,      ///< permite cortar sucessores, mas calcula a heurística a todos, de modo a mantendo os melhores
+	podaCega,		     ///< corta os sucessores, mesmo sem calcular a heurística, por ordem aleatória
+	parametrosAdversas   ///< marcador para permitir a extensão do enum em subclasses.
 };
 
-// registo do valor de um estado, em procuras anteriores 
+/**
+* @brief tipo de valor resultante do minimax com cortes alfa/beta
+*/
+enum ETipoValor { 
+	exato,      ///< o valor foi calculado sem cortes, ou seja, não sofreu influência de alfa ou beta;
+	lowerbound, ///< o valor foi afetado por um corte de beta (ou seja, ele é pelo menos esse valor, mas pode ser maior);
+	upperbound  ///< o valor foi afetado por um corte de alfa (ou seja, ele é no máximo esse valor, mas pode ser menor).
+};
+
+/**
+ * @brief registo do valor de um estado, em procuras anteriores 
+ */
 typedef struct SValorEstado {
 	int valor;
 	int nivel; // 0 - valor heurístico, -1 - inválido
 	ETipoValor tipo; 
 } TValorEstado;
 
-///////////////////////////////////////////////////////////////////////////////
-//	TProcuraAdversa class
-///////////////////////////////////////////////////////////////////////////////
-//	Author: José Coelho
-//	Last revision: 2025-01-30
-//	Description:
-//    Superclasse de procuras no espaço das soluções parciais (a solução é construida).
-//    Os custos devem ser ignorados, apenas o valor da funcao Heuristica é utilizado. 
-//    O valor infinito é definido numa variavel global à classe,
-//    e deve ser alterado conforme o problema, significando vitoria/derrota.
-//    Se não houver sucessores, o estado é terminal e o retorno da funcao heuristica
-//    deve ser exacto: -infinito ganham pretas, 0 empate, +infinito ganham as brancas
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * @brief Representa um estado no espaço de estados.
+ *
+ * Esta classe base deve ser redefinida com um problema concreto,
+ * permitindo a execução de procuras adversas.
+ */
 class TProcuraAdversa :
 	public TProcuraConstrutiva
 {
 public:
-	// o jogador actual deve minimizar o custo (ou maximizar caso tenha o valor falso)
-	bool minimizar;
-	// valor de infinito (vitoria/derrota), omissao 1000
-	static int infinito;
-	// controlo para indicar se a procura foi realizada de forma completa (c.c. foi cortada)
-	static bool completo;
-	// profundidade máxima no método iterativo
-	static int nivelOK;
-
-public:
 	TProcuraAdversa(void);
 	~TProcuraAdversa(void);
 
-	// Método para inicializar os parâmetros (redefinir se forem adicionados parâmetros específicos)
+	/// @brief o jogador actual deve minimizar o custo (ou maximizar caso tenha o valor falso)
+	bool minimizar;
+	/// @brief valor de infinito (vitoria/derrota), omissao 1000
+	static int infinito;
+	/// @brief controlo para indicar se a procura foi realizada de forma completa (c.c. foi cortada)
+	static bool completo;
+	/// @brief profundidade máxima no método iterativo
+	static int nivelOK;
+
+
+	/// @brief Método para inicializar os parâmetros (redefinir se forem adicionados parâmetros específicos)
 	void ResetParametros();
 
-	///////////////////////////////////////////////////////////////////////////////
-	// Algoritmo MiniMax
-	///////////////////////////////////////////////////////////////////////////////
-	// retorna o valor do estado actual, apos procura de profundidade nivel
+	/// @brief retorna o valor do estado actual, apos procura de profundidade nivel
 	int MiniMax(int nivel = 4);
 
-	///////////////////////////////////////////////////////////////////////////////
-	// Algoritmo MiniMaxAlfaBeta
-	///////////////////////////////////////////////////////////////////////////////
-	// retorna o valor do estado actual, apos procura de profundidade nivel
-	// idêntico a MiniMax
+	/// @brief retorna o valor do estado actual, apos procura de profundidade nivel. Idêntico a MiniMax
 	int MiniMaxAlfaBeta(int nivel = 4, int alfa = -infinito, int beta = +infinito);
 
 	// utilizar para executar testes empíricos, utilizando todas as instâncias,
@@ -69,27 +73,33 @@ public:
 	// Efetua um torneio entre configurações
 	void TesteEmpirico(int inicio = -1, int fim = -1, bool mostrarSolucoes = true);
 
+	/// @brief Executa o algoritmo com os parametros atuais
 	int ExecutaAlgoritmo();
 
+	/// @brief chamar após calcular a heurística (grava o valor, dependendo da parametrização)
 	int Heuristica(void);
 
-	// chamar em CSubProblema::Heuristica() para verificar se a heurística já existe, ou precisa de ser calculada
+	// @brief chamar em CSubProblema::Heuristica() para verificar se a heurística já existe, ou precisa de ser calculada
 	bool ExisteHeuritica(void);
 
-	// Utilitário para calculo de uma heurística standard em jogos simples (tipicamente sem empates):
-	// - calcular o número de ameaças de vitória, para cada lado, de menor comprimento:
-    //   - qMin - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
-    //   - qMax - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+
+	/**
+	 * @brief Utilitário para calculo de uma heurística standard em jogos simples
+	 *
+	 * calcular o número de ameaças de vitória, para cada lado, de menor comprimento:
+	 * - qMin - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+	 * - qMax - vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+	 */
 	int MaiorAmeaca(TVector<int>& qMin, TVector<int>& qMax, int maxAmeaca);
 
 protected:
-	// fim da procura, por corte de nível (ou não haver sucessores), retornar heurística
+	/// @brief fim da procura, por corte de nível (ou não haver sucessores), retornar heurística
 	int NoFolha(bool nivel); 
 
-	// verifica se há um corte alfa/beta, atualizando alfa e beta
+	/// @brief  verifica se há um corte alfa/beta, atualizando alfa e beta
 	bool CorteAlfaBeta(int valor, int& alfa, int& beta);
 
-	// iteração, aumentando o nível progressivamente
+	/// @brief  iteração, aumentando o nível progressivamente
 	int MetodoIterativo(int alfaBeta);
 
 
@@ -101,8 +111,8 @@ protected:
 	static TValorEstado valorHT[TAMANHO_HASHTABLE]; // hashtable / valor e nível obtido
 	// índice obtido na HT, se positivo
 	int indiceHT;
-	// ler ou gravar o melhor valor conhecido
+	/// @brief ler ou gravar o melhor valor conhecido
 	bool ValorEstado(TValorEstado& valor, int operacao);
-
+	/// @brief ver se o valor obtido é utilizável no contexto atual
 	bool Utilizavel(TValorEstado& valor, int nivel, int alfa, int beta);
 };
