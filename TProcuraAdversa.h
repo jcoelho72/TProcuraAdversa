@@ -37,7 +37,7 @@ typedef struct SValorEstado {
 } TValorEstado;
 
 /**
- * @brief Representa um estado no espaço de estados.
+ * @brief Representa um estado no espaço de estados. 
  *
  * Esta classe base deve ser redefinida com um problema concreto,
  * permitindo a execução de procuras adversas.
