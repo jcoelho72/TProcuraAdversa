@@ -35,6 +35,8 @@ jobs:
           git commit -m "Adicionar layout.xml gerado automaticamente"
           git push
         fi
+    - name: Mover documentação para /docs
+      run: mv docs/html/* docs/
     - name: Publicar documentação no GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
