@@ -43,7 +43,7 @@ typedef struct SValorEstado {
  * permitindo a execução de procuras adversas.
  */
 class TProcuraAdversa :
-	public TProcuraConstrutiva 
+	public TProcuraConstrutiva
 {
 public:
 	TProcuraAdversa(void);
