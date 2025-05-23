@@ -1,0 +1,722 @@
+\doxysection{TProcura\+Adversa Class Reference}
+\hypertarget{classTProcuraAdversa}{}\label{classTProcuraAdversa}\index{TProcuraAdversa@{TProcuraAdversa}}
+
+
+Representa um estado no espaço de estados.  
+
+
+
+
+{\ttfamily \#include $<$TProcura\+Adversa.\+h$>$}
+
+
+
+Inheritance diagram for TProcura\+Adversa\+:
+% FIG 0
+
+
+Collaboration diagram for TProcura\+Adversa\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTProcuraAdversa_afe356b79fccb94b6fd2e416bc653fc17}{TProcura\+Adversa}} (void)
+\item 
+\mbox{\hyperlink{classTProcuraAdversa_af519ba133593f289a454495ce72972fd}{\texorpdfstring{$\sim$}{\string~}\+TProcura\+Adversa}} (void)
+\item 
+void \mbox{\hyperlink{classTProcuraAdversa_aadc7ba5e844159862998d94e37a59bd1}{Reset\+Parametros}} ()
+\begin{DoxyCompactList}\small\item\em Método para inicializar os parâmetros (redefinir se forem adicionados parâmetros específicos) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classTProcuraAdversa_a4d8542bcb03f17da8aa3038384104f24}{Mini\+Max}} (int nivel=4)
+\begin{DoxyCompactList}\small\item\em retorna o valor do estado actual, apos procura de profundidade nivel \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classTProcuraAdversa_adb3f857b1c8b3ee26682e335dc6ed601}{Mini\+Max\+Alfa\+Beta}} (int nivel=4, int alfa=-\/\mbox{\hyperlink{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36}{infinito}}, int beta=+\mbox{\hyperlink{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36}{infinito}})
+\begin{DoxyCompactList}\small\item\em retorna o valor do estado actual, apos procura de profundidade nivel. Idêntico a Mini\+Max \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTProcuraAdversa_ae849ba1f915dc5e0875faa281ba4bdbb}{Teste\+Empirico}} (int inicio=-\/1, int fim=-\/1, bool mostrar\+Solucoes=true)
+\begin{DoxyCompactList}\small\item\em Executa testes empíricos, em todas as configurações guardadas, nas instâncias selecionadas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classTProcuraAdversa_aff6f48defaa10c14d160ac3990fd029b}{Executa\+Algoritmo}} ()
+\begin{DoxyCompactList}\small\item\em Executa o algoritmo com os parametros atuais. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classTProcuraAdversa_a75e148ba0a922339333940828366aed6}{Heuristica}} (void)
+\begin{DoxyCompactList}\small\item\em chamar após calcular a heurística (grava o valor, dependendo da parametrização) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classTProcuraAdversa_aab0860dd7b025e71049e204adb25df25}{Existe\+Heuritica}} (void)
+\item 
+int \mbox{\hyperlink{classTProcuraAdversa_a1869e0545c7fe2dd0d38f5f3c860c61f}{Maior\+Ameaca}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&q\+Min, \mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&q\+Max, int max\+Ameaca)
+\begin{DoxyCompactList}\small\item\em Utilitário para calculo de uma heurística standard em jogos simples. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classTProcuraConstrutiva}{TProcura\+Construtiva}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTProcuraConstrutiva_a13799910c11d9ab8585bec576becc8a5}{TProcura\+Construtiva}} (void)
+\item 
+virtual \mbox{\hyperlink{classTProcuraConstrutiva_aa19cbee6023bd0ff01c61c6d6db2e2ae}{\texorpdfstring{$\sim$}{\string~}\+TProcura\+Construtiva}} (void)
+\item 
+virtual \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} \mbox{\hyperlink{group__RedefinicaoMandatoria_gaf7c2483f38d11825c220b7a8d538a623}{Duplicar}} (void)=0
+\begin{DoxyCompactList}\small\item\em Cria um objecto que é uma cópia deste. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoMandatoria_ga92eb7af76e68a20fe542afb459e7d642}{Copiar}} (\mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} objecto)
+\begin{DoxyCompactList}\small\item\em Fica com uma cópia do objecto. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoMandatoria_ga687ad49ea5304ae8e2c3782f470c4ad3}{Solucao\+Vazia}} (void)
+\begin{DoxyCompactList}\small\item\em Coloca o objecto no estado inicial da procura. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoMandatoria_ga0a13570d2f5a21296e3c10c2780e170c}{Sucessores}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&sucessores)
+\begin{DoxyCompactList}\small\item\em Coloca em sucessores a lista de estados sucessores. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{group__RedefinicaoMandatoria_ga1f3e2b667881c3e910ba372467645304}{Solucao\+Completa}} (void)
+\begin{DoxyCompactList}\small\item\em Verifica se o estado actual é objectivo (é uma solução completa) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoMandatoria_ga843a501e25cbaff7eb51d8d29995be3a}{Teste\+Manual}} (const char \texorpdfstring{$\ast$}{*}nome)
+\begin{DoxyCompactList}\small\item\em Inicializa a interação com o utilizador. \end{DoxyCompactList}\item 
+virtual const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__RedefinicaoSugerida_gacbc6e34f3a403d26d806f37b5cd739f6}{Acao}} (\mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} sucessor)
+\begin{DoxyCompactList}\small\item\em Retorna a ação (movimento, passo, jogada, lance, etc.) que gerou o sucessor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoSugerida_ga5ff46e85c8f1394c2502f17025284c11}{Codifica}} (uint64\+\_\+t estado\mbox{[}\mbox{\hyperlink{TProcuraConstrutiva_8h_ad1114b0f3993c53d8c5d61ecc3434526}{OBJETO\+\_\+\+HASHTABLE}}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Codifica o estado para um vetor de inteiros de 64 bits. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoSugerida_ga6bb2ece76e931695c9e32df7ca7143aa}{Debug}} (void)
+\begin{DoxyCompactList}\small\item\em Mostra o estado no ecrã, para debug. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{group__RedefinicaoOpcional_gacccf4fbb52126ba19bfc456c0c6d5214}{Acao}} (const char \texorpdfstring{$\ast$}{*}acao)
+\begin{DoxyCompactList}\small\item\em Executa a ação (movimento, passo, jogada, lance, etc.) no estado atual. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{group__RedefinicaoOpcional_gaed4543b865993696a193d101e925b5b1}{Parar}} (void)
+\begin{DoxyCompactList}\small\item\em Verifica se a procura deve ser interrompida. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{group__RedefinicaoOpcional_ga1cf2a30e496ea869e85a9d60b4d469e9}{Distinto}} (\mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} estado)
+\begin{DoxyCompactList}\small\item\em Verifica se o estado actual distinto do fornecido. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{group__RedefinicaoOpcional_ga74b4c5766a2b65bdb4c3019523c1508f}{Mostrar\+Solucao}} (void)
+\begin{DoxyCompactList}\small\item\em Mostrar solução, seja um caminho ou o próprio estado. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasCegas_gafe656922894d8a27b4cfb70128793af0}{Largura\+Primeiro}} (int \mbox{\hyperlink{TProcuraConstrutiva_8h_a3c6c902bf1e6a69c702caca172718058a2085656f32afbd50512cd8364689405f}{limite}}=0)
+\begin{DoxyCompactList}\small\item\em Executa a procura em largura primeiro, algoritmo cego. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasCegas_ga2343fafdecfd55b69c0ffb71e8f9426b}{Custo\+Uniforme}} (int \mbox{\hyperlink{TProcuraConstrutiva_8h_a3c6c902bf1e6a69c702caca172718058a2085656f32afbd50512cd8364689405f}{limite}}=0)
+\begin{DoxyCompactList}\small\item\em Executa a procura por custo uniforme, algoritmo cego. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasCegas_gaf00d9776f6b25d56138efb6725b86228}{Profundidade\+Primeiro}} (int nivel=0)
+\begin{DoxyCompactList}\small\item\em Executa a procura em profundidade primeiro, algoritmo cego. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasInformadas_gaebb84182343041bc276e4ceceb4b13aa}{Melhor\+Primeiro}} (int nivel=0)
+\begin{DoxyCompactList}\small\item\em Executa a procura melhor primeiro, algoritmo informado. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasInformadas_ga37dd78e1a9a6742700728135f81964b4}{AStar}} (int \mbox{\hyperlink{TProcuraConstrutiva_8h_a3c6c902bf1e6a69c702caca172718058a2085656f32afbd50512cd8364689405f}{limite}}=0)
+\begin{DoxyCompactList}\small\item\em Executa a procura A\texorpdfstring{$\ast$}{*}, algoritmo informado. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasInformadas_gae77f9608e7988052377d7025bee7c4e8}{IDAStar}} (int upper\+Bound=0)
+\begin{DoxyCompactList}\small\item\em Executa a procura IDA\texorpdfstring{$\ast$}{*}, algoritmo informado. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__ProcurasInformadas_gafe804dbf6cabda9e627500c2d4f8aafd}{Branch\+And\+Bound}} (int upper\+Bound=0)
+\begin{DoxyCompactList}\small\item\em Executa o algoritmo Branch-\/and-\/\+Bound, um algoritmo informado. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_ae254bbde1b2e36391d575fc2836fea7f}{Limpar\+Estatisticas}} (clock\+\_\+t \&inicio)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_af2fbc46bcca99f48e42cdbc62eecc1fd}{Finalizar\+Corrida}} (clock\+\_\+t inicio)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a5f021041a7dfe1b68890d9e5f5f0e6f4}{Lower\+Bound}} ()
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a7426b2abb333f77ef5d00ae46d5f2d32}{Nova\+Linha}} (bool tudo=true)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classTProcuraAdversa_a72aaad862bedca505689513bec233c2a}{minimizar}}
+\begin{DoxyCompactList}\small\item\em o jogador actual deve minimizar o custo (ou maximizar caso tenha o valor falso) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classTProcuraConstrutiva}{TProcura\+Construtiva}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} \mbox{\hyperlink{group__VariaveisEstado_ga70de69abaeaa64262d4bd042ef01e62c}{pai}}
+\begin{DoxyCompactList}\small\item\em Ponteiro para o estado pai, na árvore de procura. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__VariaveisEstado_ga2ee0de16d01f9520b20807f900bf69d0}{custo}}
+\begin{DoxyCompactList}\small\item\em Custo total acumulado desde o estado inicial. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__VariaveisEstado_ga1703a3b3ed01aa7742846d296aad112d}{heuristica}}
+\begin{DoxyCompactList}\small\item\em Estimativa para o custo até um estado objetivo, se disponível. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36}{infinito}} = 1000
+\begin{DoxyCompactList}\small\item\em valor de infinito (vitoria/derrota), omissao 1000 \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{classTProcuraAdversa_a68b3eb30c6967f5694b4d1f9f50c434c}{completo}}
+\begin{DoxyCompactList}\small\item\em controlo para indicar se a procura foi realizada de forma completa (c.\+c. foi cortada) \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{classTProcuraAdversa_ad3c1d255519bd00ea9adc042720b17cf}{nivel\+OK}} = 0
+\begin{DoxyCompactList}\small\item\em profundidade máxima no método iterativo \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes inherited from \mbox{\hyperlink{classTProcuraConstrutiva}{TProcura\+Construtiva}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{TProcuraConstrutiva_8h_aac9b452041c04268ab8dafdc7542dbf0}{TParametro}} \mbox{\hyperlink{group__VariaveisGlobais_gaf66ca5293e862decb3fa33ac0cbe9264}{instancia}} = \{ NULL,1,1,1, NULL, NULL \}
+\begin{DoxyCompactList}\small\item\em ID da instância atual, a ser utilizado em \doxylink{group__RedefinicaoMandatoria_ga687ad49ea5304ae8e2c3782f470c4ad3}{Solucao\+Vazia()}. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_aac9b452041c04268ab8dafdc7542dbf0}{TParametro}} $>$ \mbox{\hyperlink{group__VariaveisGlobais_gaa214272b03812529f77ebdf9f745c97d}{parametro}}
+\begin{DoxyCompactList}\small\item\em Parâmetros a serem utilizados na configuração atual. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ $>$ \mbox{\hyperlink{group__VariaveisGlobais_ga80c8e869e8ac8d64820ce8570e44cc8e}{configuracoes}}
+\begin{DoxyCompactList}\small\item\em Conjuntos de configurações para teste empírico. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__VariaveisGlobais_ga6185647765b723a3581b5541722e496f}{geracoes}} = 0
+\begin{DoxyCompactList}\small\item\em Número total de gerações realizadas na procura. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__VariaveisGlobais_ga198a1f8ed90785a1c3f112a3468a2d74}{expansoes}} =0
+\begin{DoxyCompactList}\small\item\em Número total de expansões realizadas na procura. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__VariaveisGlobais_ga1ce9b620e165ff360003cf0c21101470}{avaliacoes}} =0
+\begin{DoxyCompactList}\small\item\em Número total de avaliações realizadas na procura. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \mbox{\hyperlink{group__VariaveisGlobais_ga6dad497973fb467e2b2224f134b90443}{caminho}}
+\begin{DoxyCompactList}\small\item\em Solução retornada pela procura (os estados devem ser libertados). \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{group__VariaveisGlobais_ga3f3d8c2ba303e27335a5b4c424b0ffc5}{memoria\+Esgotada}} = false
+\begin{DoxyCompactList}\small\item\em Flag indicando problemas de memória esgotada. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} \mbox{\hyperlink{group__VariaveisGlobais_gadb0d41114016ec069543b3494b0e0196}{solucao}} =NULL
+\begin{DoxyCompactList}\small\item\em Estado objetivo encontrado, retornado pela procura (deve ser libertado). \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__VariaveisGlobais_ga1af840b6ec9c04ce7d4c8849346441bd}{lower\+Bound}} = 0
+\begin{DoxyCompactList}\small\item\em Valor mínimo que a solução pode apresentar, obtido pela procura. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{group__VariaveisGlobais_ga514dd29e1b8b06e0ecdf054c992c716b}{tamanho\+Codificado}} = \mbox{\hyperlink{TProcuraConstrutiva_8h_ad1114b0f3993c53d8c5d61ecc3434526}{OBJETO\+\_\+\+HASHTABLE}}
+\begin{DoxyCompactList}\small\item\em Número de inteiros de 64 bits utilizados para codificar um objeto (≤ OBJETO\+\_\+\+HASHTABLE). \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classTVector}{TVector}}$<$ unsigned char $>$ \mbox{\hyperlink{group__VariaveisGlobais_gaaf6f588c839f27181cf9f31f7618c8c1}{ramo}}
+\item 
+static int \mbox{\hyperlink{group__VariaveisGlobais_ga95c939d457c63d60ff3b1a0eb9e47da4}{espacos\+Ramo}} =2
+\item 
+static clock\+\_\+t \mbox{\hyperlink{group__VariaveisGlobais_gaf7efa04a418f94ee4bad1392e69e357d}{instante\+Final}} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classTProcuraAdversa_a01ed7d4718647eb52723ecffaf68aa4b}{No\+Folha}} (bool nivel)
+\begin{DoxyCompactList}\small\item\em fim da procura, por corte de nível (ou não haver sucessores), retornar heurística \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classTProcuraAdversa_a816a0a735f6f4379338a330e0ff19fa5}{Corte\+Alfa\+Beta}} (int valor, int \&alfa, int \&beta)
+\begin{DoxyCompactList}\small\item\em verifica se há um corte alfa/beta, atualizando alfa e beta \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classTProcuraAdversa_a7c4153974c32753901326271fee90197}{Metodo\+Iterativo}} (int alfa\+Beta)
+\begin{DoxyCompactList}\small\item\em iteração, aumentando o nível progressivamente \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTProcuraAdversa_a369a3b5182150b22fd6deb0d46916d49}{Ordenar\+Sucessores}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&sucessores, \mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&id, int nivel)
+\item 
+void \mbox{\hyperlink{classTProcuraAdversa_ab13f514d86e599dc15a682e6a6199987}{Substituir\+HT}} (int indice)
+\item 
+bool \mbox{\hyperlink{classTProcuraAdversa_ad01434aae577cafdb636f82ba2815215}{Existe\+HT}} ()
+\item 
+bool \mbox{\hyperlink{classTProcuraAdversa_a9c95c246b28345f0d515a9083ffd646d}{Valor\+Estado}} (\mbox{\hyperlink{TProcuraAdversa_8h_a8d5dcc924e099ce86a559b21312a7f0c}{TValor\+Estado}} \&valor, int operacao)
+\begin{DoxyCompactList}\small\item\em ler ou gravar o melhor valor conhecido \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classTProcuraAdversa_ac419ad4d242b6789e5ed03431f0cbc4a}{Utilizavel}} (\mbox{\hyperlink{TProcuraAdversa_8h_a8d5dcc924e099ce86a559b21312a7f0c}{TValor\+Estado}} \&valor, int nivel, int alfa, int beta)
+\begin{DoxyCompactList}\small\item\em ver se o valor obtido é utilizável no contexto atual \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classTProcuraConstrutiva}{TProcura\+Construtiva}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_ad02feccb0f347d9a475ed1b883cc12aa}{Debug\+Expansao}} (int sucessor, int sucessores, bool duplo=false)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a042ab47715ba45d53a86413415ea95fd}{Debug\+Corte}} (int sucessores=-\/1, bool duplo=false)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a3cb063790a46d8fac87044c7c68c53b3}{Debug\+Solucao}} (bool continuar=false)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a6962c0cf7350a211ae74b00768d9c232}{Debug\+Chamada}} (void)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a8a25d942dd9c34c27ad92e3e36177f2f}{Debug\+Passo}} (void)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a08aa14ddc895426b2ce3df4d763cbbd7}{Debug\+Sucessores}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&sucessores)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_ae464aeb16628493409e4d88cede9a9e7}{Debug\+Iteracao}} (int iteracao)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a3c5b2743566153ca9d45e875106e548b}{Debug\+Estado}} (int id=-\/1, int \mbox{\hyperlink{group__VariaveisEstado_ga70de69abaeaa64262d4bd042ef01e62c}{pai}}=-\/1)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a1784cd5198a6cb0ae7ad763af9982120}{Debug\+Ramo}} (char \mbox{\hyperlink{group__VariaveisGlobais_gaaf6f588c839f27181cf9f31f7618c8c1}{ramo}}, char folha)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a8e7879e0ac12522e0eedf3d3d365e51c}{Objetivo\+Alcancado}} (int item, \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&lista)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a18331ff4fccaf78df8bd3656357e9e75}{Objetivo\+Alcancado}} (\mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} estado, bool completa=true)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a2f648df694a20e7fcb688c9979f763fd}{Solucao\+Encontrada}} (bool continuar=false)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_ab3d3ef92421595428a27deef2c3bb668}{Calcula\+Caminho}} (bool completa=true)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_aec0a667a7fda1ebe565ba13d6b02805a}{Verifica\+Limites}} (int \mbox{\hyperlink{TProcuraConstrutiva_8h_a3c6c902bf1e6a69c702caca172718058a2085656f32afbd50512cd8364689405f}{limite}}, int por\+Processar, \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&sucessores)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a640e74c9b6cd340761db671438ad679e}{Calcular\+Heuristicas}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&sucessores, \mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \texorpdfstring{$\ast$}{*}id=NULL, bool sort\+LB=false)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a6bc5ce68c35bb341173421200dec2937}{Solucao\+Parcial}} (int i, \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&sucessores)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_ab5639efca5e48b564a8bdd9ec23a8955}{Explorar\+Sucessores}} (bool jogo=false)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_aa2c53163dbc3e394abbd2bfbf70e29ca}{Editar\+Parametros}} ()
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a7e5329143aa8df478b68741d47fa6a7f}{Editar\+Configuracoes}} ()
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a9d4bc5b86186bcba9cbee82588ada2fb}{Mostrar\+Configuracoes}} (int \mbox{\hyperlink{TProcuraConstrutiva_8h_a9f2d53e364b23f725c2b357d0fd5eaf8a1c11821ca1925ac0472c416c9c8c32f0}{detalhe}}, int atual=-\/1)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a0729129ac5c4791ebd251bdd28e4a137}{Solicita\+Instancia}} ()
+\item 
+bool \mbox{\hyperlink{classTProcuraConstrutiva_a1d844f9591ce201c48e38024a92887f4}{Tempo\+Excedido}} ()
+\item 
+bool \mbox{\hyperlink{classTProcuraConstrutiva_a210ebf6bc971e86c845f7bbade1ca4c6}{Geracoes\+Excedido}} ()
+\item 
+bool \mbox{\hyperlink{classTProcuraConstrutiva_ab0c0a5578bb6fce9ea175f1646871212}{Expansoes\+Excedido}} ()
+\item 
+bool \mbox{\hyperlink{classTProcuraConstrutiva_ae69f7bb250c61cd3b73d85a3a2305600}{Avaliacoes\+Excedido}} ()
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a51a3757ad4f4041833c7957276d76ab9}{Mostrar\+Caminho}} ()
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_af74795a981510f72e0c7865cd758ab3b}{Mostra\+Parametros}} (int \mbox{\hyperlink{TProcuraConstrutiva_8h_a9f2d53e364b23f725c2b357d0fd5eaf8a1c11821ca1925ac0472c416c9c8c32f0}{detalhe}}=1, \mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \texorpdfstring{$\ast$}{*}id\+Parametros=NULL)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_ac7e1356d8cd516f18380d4f4c5730c2b}{Mostra\+Relatorio}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a4428af995799ff246df4a39dfb58d0e9}{TResultado}} $>$ \&resultados)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a6dc1daad843c50560a5f3dd8bbe23f56}{Dominio}} (int \&variavel, int min=INT\+\_\+\+MIN, int max=INT\+\_\+\+MAX)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a4c50b21dc4dc6a689af754dfce6e272f}{Configuracao\+Atual}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&parametros, int operacao)
+\item 
+int \mbox{\hyperlink{classTProcuraConstrutiva_a8f3b2ddaa879df23c5c9921cdfff0dd8}{Melhor\+Resultado}} (\mbox{\hyperlink{TProcuraConstrutiva_8h_a4428af995799ff246df4a39dfb58d0e9}{TResultado}} base, \mbox{\hyperlink{TProcuraConstrutiva_8h_a4428af995799ff246df4a39dfb58d0e9}{TResultado}} alternativa)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a589640c821d42dbcc476971995b511bf}{Calcula\+Torneio}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a4428af995799ff246df4a39dfb58d0e9}{TResultado}} $>$ \&resultados)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a12b8afb0fe836f489ada61cb33eb5dee}{Mostrar\+Torneio}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ $>$ \&torneio, bool jogo=false)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a555a752a4e2bf6a0e5ba1454eeb16e38}{Barra\+Torneio}} (bool nomes)
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_adc31f777cf89c56571baedd4a48cea47}{Extrair\+Configuracao}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a4428af995799ff246df4a39dfb58d0e9}{TResultado}} $>$ \&resultados, \mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a4428af995799ff246df4a39dfb58d0e9}{TResultado}} $>$ \&extracao, int configuracao)
+\item 
+unsigned int \mbox{\hyperlink{classTProcuraConstrutiva_a70375188a6ee7775bc842a3e64f8e35c}{Hash}} ()
+\item 
+void \mbox{\hyperlink{classTProcuraConstrutiva_a8b500987c88352d27a68200454cc3c8c}{Limpar\+HT}} ()
+\item 
+bool \mbox{\hyperlink{classTProcuraConstrutiva_ad7857beab462b4b09a37e70cc9c787ac}{Existe\+HT}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classTProcuraAdversa_a04c82c175bea1a911cdb5077d2ec1c02}{indice\+HT}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{TProcuraAdversa_8h_a8d5dcc924e099ce86a559b21312a7f0c}{TValor\+Estado}} \mbox{\hyperlink{classTProcuraAdversa_adf778e7e00379e60276305c569b4cbc4}{valor\+HT}} \mbox{[}\mbox{\hyperlink{TProcuraConstrutiva_8h_a8895513761bdfeec201d14cb01ed86f0}{TAMANHO\+\_\+\+HASHTABLE}}\mbox{]}
+\item 
+static int \mbox{\hyperlink{classTProcuraAdversa_abfa149e4beec8447ec67c05adeb6fedc}{reutilizado\+Avaliacao}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{classTProcuraConstrutiva}{TProcura\+Construtiva}}}
+\begin{DoxyCompactItemize}
+\item 
+static uint64\+\_\+t \mbox{\hyperlink{classTProcuraConstrutiva_a601336388070f0aee00e9615b1097205}{elementos\+HT}} \mbox{[}\mbox{\hyperlink{TProcuraConstrutiva_8h_a8895513761bdfeec201d14cb01ed86f0}{TAMANHO\+\_\+\+HASHTABLE}}\mbox{]}\mbox{[}\mbox{\hyperlink{TProcuraConstrutiva_8h_ad1114b0f3993c53d8c5d61ecc3434526}{OBJETO\+\_\+\+HASHTABLE}}\mbox{]}
+\item 
+static int \mbox{\hyperlink{classTProcuraConstrutiva_af40b12ca395037ca10b1be13c4f5e5ab}{custo\+HT}} \mbox{[}\mbox{\hyperlink{TProcuraConstrutiva_8h_a8895513761bdfeec201d14cb01ed86f0}{TAMANHO\+\_\+\+HASHTABLE}}\mbox{]}
+\item 
+static uint64\+\_\+t \mbox{\hyperlink{classTProcuraConstrutiva_afee458f3c6b027eaf5958115801ce999}{estado\+Cod\+HT}} \mbox{[}\mbox{\hyperlink{TProcuraConstrutiva_8h_ad1114b0f3993c53d8c5d61ecc3434526}{OBJETO\+\_\+\+HASHTABLE}}\mbox{]}
+\item 
+static int \mbox{\hyperlink{classTProcuraConstrutiva_af92e08783d2d2f6acc4c2f09e6354828}{colocados\+HT}} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classTProcuraConstrutiva}{TProcura\+Construtiva}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classTProcuraConstrutiva_a976f17b2b53ce9ffc7d1795d291262df}{Libertar\+Vector}} (\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&vector, int excepto=-\/1, int maior\+Que=-\/1)
+\item 
+static int \mbox{\hyperlink{classTProcuraConstrutiva_a47abc151fcdd67c126b99672870d7dca}{Novo\+Valor}} (const char \texorpdfstring{$\ast$}{*}prompt)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Representa um estado no espaço de estados. 
+
+Esta classe base deve ser redefinida com um problema concreto, permitindo a execução de procuras adversas. 
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00045}{45}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classTProcuraAdversa_afe356b79fccb94b6fd2e416bc653fc17}\label{classTProcuraAdversa_afe356b79fccb94b6fd2e416bc653fc17} 
+\index{TProcuraAdversa@{TProcuraAdversa}!TProcuraAdversa@{TProcuraAdversa}}
+\index{TProcuraAdversa@{TProcuraAdversa}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{TProcuraAdversa()}{TProcuraAdversa()}}
+{\footnotesize\ttfamily TProcura\+Adversa\+::\+TProcura\+Adversa (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+\Hypertarget{classTProcuraAdversa_af519ba133593f289a454495ce72972fd}\label{classTProcuraAdversa_af519ba133593f289a454495ce72972fd} 
+\index{TProcuraAdversa@{TProcuraAdversa}!````~TProcuraAdversa@{\texorpdfstring{$\sim$}{\string~}TProcuraAdversa}}
+\index{````~TProcuraAdversa@{\texorpdfstring{$\sim$}{\string~}TProcuraAdversa}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}TProcuraAdversa()}{\string~TProcuraAdversa()}}
+{\footnotesize\ttfamily TProcura\+Adversa\+::\texorpdfstring{$\sim$}{\string~}\+TProcura\+Adversa (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classTProcuraAdversa_a816a0a735f6f4379338a330e0ff19fa5}\label{classTProcuraAdversa_a816a0a735f6f4379338a330e0ff19fa5} 
+\index{TProcuraAdversa@{TProcuraAdversa}!CorteAlfaBeta@{CorteAlfaBeta}}
+\index{CorteAlfaBeta@{CorteAlfaBeta}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{CorteAlfaBeta()}{CorteAlfaBeta()}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::\+Corte\+Alfa\+Beta (\begin{DoxyParamCaption}\item[{int}]{valor,  }\item[{int \&}]{alfa,  }\item[{int \&}]{beta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+verifica se há um corte alfa/beta, atualizando alfa e beta 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00348}{348}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{classTProcuraAdversa_aff6f48defaa10c14d160ac3990fd029b}\label{classTProcuraAdversa_aff6f48defaa10c14d160ac3990fd029b} 
+\index{TProcuraAdversa@{TProcuraAdversa}!ExecutaAlgoritmo@{ExecutaAlgoritmo}}
+\index{ExecutaAlgoritmo@{ExecutaAlgoritmo}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{ExecutaAlgoritmo()}{ExecutaAlgoritmo()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+Executa\+Algoritmo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Executa o algoritmo com os parametros atuais. 
+
+
+
+Reimplemented from \mbox{\hyperlink{group__RedefinicaoOpcional_gae52871eb18c8ae656a2174acf43b3bb3}{TProcura\+Construtiva}}.
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00491}{491}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{classTProcuraAdversa_aab0860dd7b025e71049e204adb25df25}\label{classTProcuraAdversa_aab0860dd7b025e71049e204adb25df25} 
+\index{TProcuraAdversa@{TProcuraAdversa}!ExisteHeuritica@{ExisteHeuritica}}
+\index{ExisteHeuritica@{ExisteHeuritica}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{ExisteHeuritica()}{ExisteHeuritica()}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::\+Existe\+Heuritica (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00124}{124}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\Hypertarget{classTProcuraAdversa_ad01434aae577cafdb636f82ba2815215}\label{classTProcuraAdversa_ad01434aae577cafdb636f82ba2815215} 
+\index{TProcuraAdversa@{TProcuraAdversa}!ExisteHT@{ExisteHT}}
+\index{ExisteHT@{ExisteHT}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{ExisteHT()}{ExisteHT()}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::\+Existe\+HT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00517}{517}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\Hypertarget{classTProcuraAdversa_a75e148ba0a922339333940828366aed6}\label{classTProcuraAdversa_a75e148ba0a922339333940828366aed6} 
+\index{TProcuraAdversa@{TProcuraAdversa}!Heuristica@{Heuristica}}
+\index{Heuristica@{Heuristica}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{Heuristica()}{Heuristica()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+Heuristica (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+chamar após calcular a heurística (grava o valor, dependendo da parametrização) 
+
+
+
+Reimplemented from \mbox{\hyperlink{group__RedefinicaoSugerida_ga0e8bb1bd33683545dc4f8f6329548b40}{TProcura\+Construtiva}}.
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00114}{114}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\Hypertarget{classTProcuraAdversa_a1869e0545c7fe2dd0d38f5f3c860c61f}\label{classTProcuraAdversa_a1869e0545c7fe2dd0d38f5f3c860c61f} 
+\index{TProcuraAdversa@{TProcuraAdversa}!MaiorAmeaca@{MaiorAmeaca}}
+\index{MaiorAmeaca@{MaiorAmeaca}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{MaiorAmeaca()}{MaiorAmeaca()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+Maior\+Ameaca (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&}]{q\+Min,  }\item[{\mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&}]{q\+Max,  }\item[{int}]{max\+Ameaca }\end{DoxyParamCaption})}
+
+
+
+Utilitário para calculo de uma heurística standard em jogos simples. 
+
+calcular o número de ameaças de vitória, para cada lado, de menor comprimento\+:
+\begin{DoxyItemize}
+\item q\+Min -\/ vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente;
+\item q\+Max -\/ vetor com número de ameaças (1 ou mais) a 1 jogada (na primeira posição), a 2 (na segunda posição), e assim sucessivamente; 
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00209}{209}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\Hypertarget{classTProcuraAdversa_a7c4153974c32753901326271fee90197}\label{classTProcuraAdversa_a7c4153974c32753901326271fee90197} 
+\index{TProcuraAdversa@{TProcuraAdversa}!MetodoIterativo@{MetodoIterativo}}
+\index{MetodoIterativo@{MetodoIterativo}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{MetodoIterativo()}{MetodoIterativo()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+Metodo\+Iterativo (\begin{DoxyParamCaption}\item[{int}]{alfa\+Beta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+iteração, aumentando o nível progressivamente 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00176}{176}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 14
+Here is the caller graph for this function\+:
+% FIG 15
+\Hypertarget{classTProcuraAdversa_a4d8542bcb03f17da8aa3038384104f24}\label{classTProcuraAdversa_a4d8542bcb03f17da8aa3038384104f24} 
+\index{TProcuraAdversa@{TProcuraAdversa}!MiniMax@{MiniMax}}
+\index{MiniMax@{MiniMax}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{MiniMax()}{MiniMax()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+Mini\+Max (\begin{DoxyParamCaption}\item[{int}]{nivel = {\ttfamily 4} }\end{DoxyParamCaption})}
+
+
+
+retorna o valor do estado actual, apos procura de profundidade nivel 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 16
+Here is the caller graph for this function\+:
+% FIG 17
+\Hypertarget{classTProcuraAdversa_adb3f857b1c8b3ee26682e335dc6ed601}\label{classTProcuraAdversa_adb3f857b1c8b3ee26682e335dc6ed601} 
+\index{TProcuraAdversa@{TProcuraAdversa}!MiniMaxAlfaBeta@{MiniMaxAlfaBeta}}
+\index{MiniMaxAlfaBeta@{MiniMaxAlfaBeta}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{MiniMaxAlfaBeta()}{MiniMaxAlfaBeta()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+Mini\+Max\+Alfa\+Beta (\begin{DoxyParamCaption}\item[{int}]{nivel = {\ttfamily 4},  }\item[{int}]{alfa = {\ttfamily -\/\mbox{\hyperlink{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36}{infinito}}},  }\item[{int}]{beta = {\ttfamily +\mbox{\hyperlink{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36}{infinito}}} }\end{DoxyParamCaption})}
+
+
+
+retorna o valor do estado actual, apos procura de profundidade nivel. Idêntico a Mini\+Max 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00272}{272}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 18
+Here is the caller graph for this function\+:
+% FIG 19
+\Hypertarget{classTProcuraAdversa_a01ed7d4718647eb52723ecffaf68aa4b}\label{classTProcuraAdversa_a01ed7d4718647eb52723ecffaf68aa4b} 
+\index{TProcuraAdversa@{TProcuraAdversa}!NoFolha@{NoFolha}}
+\index{NoFolha@{NoFolha}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{NoFolha()}{NoFolha()}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::\+No\+Folha (\begin{DoxyParamCaption}\item[{bool}]{nivel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+fim da procura, por corte de nível (ou não haver sucessores), retornar heurística 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00240}{240}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 20
+Here is the caller graph for this function\+:
+% FIG 21
+\Hypertarget{classTProcuraAdversa_a369a3b5182150b22fd6deb0d46916d49}\label{classTProcuraAdversa_a369a3b5182150b22fd6deb0d46916d49} 
+\index{TProcuraAdversa@{TProcuraAdversa}!OrdenarSucessores@{OrdenarSucessores}}
+\index{OrdenarSucessores@{OrdenarSucessores}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{OrdenarSucessores()}{OrdenarSucessores()}}
+{\footnotesize\ttfamily void TProcura\+Adversa\+::\+Ordenar\+Sucessores (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTVector}{TVector}}$<$ \mbox{\hyperlink{TProcuraConstrutiva_8h_a510f7055614397eeab21f50df58cc9b8}{TNo}} $>$ \&}]{sucessores,  }\item[{\mbox{\hyperlink{classTVector}{TVector}}$<$ int $>$ \&}]{id,  }\item[{int}]{nivel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00133}{133}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 22
+Here is the caller graph for this function\+:
+% FIG 23
+\Hypertarget{classTProcuraAdversa_aadc7ba5e844159862998d94e37a59bd1}\label{classTProcuraAdversa_aadc7ba5e844159862998d94e37a59bd1} 
+\index{TProcuraAdversa@{TProcuraAdversa}!ResetParametros@{ResetParametros}}
+\index{ResetParametros@{ResetParametros}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{ResetParametros()}{ResetParametros()}}
+{\footnotesize\ttfamily void TProcura\+Adversa\+::\+Reset\+Parametros (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Método para inicializar os parâmetros (redefinir se forem adicionados parâmetros específicos) 
+
+
+
+Reimplemented from \mbox{\hyperlink{group__RedefinicaoSugerida_gacb15562d8776f4d162001d385ebc13a0}{TProcura\+Construtiva}}.
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00026}{26}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 24
+Here is the caller graph for this function\+:
+% FIG 25
+\Hypertarget{classTProcuraAdversa_ab13f514d86e599dc15a682e6a6199987}\label{classTProcuraAdversa_ab13f514d86e599dc15a682e6a6199987} 
+\index{TProcuraAdversa@{TProcuraAdversa}!SubstituirHT@{SubstituirHT}}
+\index{SubstituirHT@{SubstituirHT}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{SubstituirHT()}{SubstituirHT()}}
+{\footnotesize\ttfamily void TProcura\+Adversa\+::\+Substituir\+HT (\begin{DoxyParamCaption}\item[{int}]{indice }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classTProcuraConstrutiva_a99b7a74f16f5a1b63b12bf629b902057}{TProcura\+Construtiva}}.
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00512}{512}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 26
+Here is the caller graph for this function\+:
+% FIG 27
+\Hypertarget{classTProcuraAdversa_ae849ba1f915dc5e0875faa281ba4bdbb}\label{classTProcuraAdversa_ae849ba1f915dc5e0875faa281ba4bdbb} 
+\index{TProcuraAdversa@{TProcuraAdversa}!TesteEmpirico@{TesteEmpirico}}
+\index{TesteEmpirico@{TesteEmpirico}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{TesteEmpirico()}{TesteEmpirico()}}
+{\footnotesize\ttfamily void TProcura\+Adversa\+::\+Teste\+Empirico (\begin{DoxyParamCaption}\item[{int}]{inicio = {\ttfamily -\/1},  }\item[{int}]{fim = {\ttfamily -\/1},  }\item[{bool}]{mostrar\+Solucoes = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Executa testes empíricos, em todas as configurações guardadas, nas instâncias selecionadas. 
+
+\begin{DoxyNote}{Note}
+Redefinição não é necessária 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em inicio} & -\/ ID da primeira instância no teste (ou -\/1 para a primeira) \\
+\hline
+{\em fim} & -\/ ID da última instância no teste (ou -\/1 para a última) \\
+\hline
+{\em mostrar\+Solucoes} & -\/ se true, mostra a solução após cada execução, c.\+c. indica apenas a instância em processamento.\\
+\hline
+\end{DoxyParams}
+Esta função é chamada de \doxylink{group__RedefinicaoMandatoria_ga843a501e25cbaff7eb51d8d29995be3a}{Teste\+Manual()} para executar testes empíricos. A função apresenta-\/se como método virtual, atendendo a que será redefinida nas procuras adversas. É genérica e não se prevê outras situações que seja necessário redefini-\/la.
+
+\begin{DoxyNote}{Note}
+Pode ser chamada diretamente do código, e nesse caso é necessário que a variável estática \textquotesingle{}configuracoes\textquotesingle{} tenha as configurações em teste. Se {\ttfamily configuracoes} estiver vazia, o teste empírico será executado apenas com a configuração atual, avaliando seu desempenho isoladamente, sem comparação com outras configurações.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group__RedefinicaoMandatoria_ga843a501e25cbaff7eb51d8d29995be3a}{Teste\+Manual()} 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \mbox{\hyperlink{group__RedefinicaoOpcional_gab2fca28035f165ce7c1d40acbfc8c971}{TProcura\+Construtiva}}.
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00391}{391}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 28
+\Hypertarget{classTProcuraAdversa_ac419ad4d242b6789e5ed03431f0cbc4a}\label{classTProcuraAdversa_ac419ad4d242b6789e5ed03431f0cbc4a} 
+\index{TProcuraAdversa@{TProcuraAdversa}!Utilizavel@{Utilizavel}}
+\index{Utilizavel@{Utilizavel}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{Utilizavel()}{Utilizavel()}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::\+Utilizavel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{TProcuraAdversa_8h_a8d5dcc924e099ce86a559b21312a7f0c}{TValor\+Estado}} \&}]{valor,  }\item[{int}]{nivel,  }\item[{int}]{alfa,  }\item[{int}]{beta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ver se o valor obtido é utilizável no contexto atual 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00339}{339}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the caller graph for this function\+:
+% FIG 29
+\Hypertarget{classTProcuraAdversa_a9c95c246b28345f0d515a9083ffd646d}\label{classTProcuraAdversa_a9c95c246b28345f0d515a9083ffd646d} 
+\index{TProcuraAdversa@{TProcuraAdversa}!ValorEstado@{ValorEstado}}
+\index{ValorEstado@{ValorEstado}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{ValorEstado()}{ValorEstado()}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::\+Valor\+Estado (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{TProcuraAdversa_8h_a8d5dcc924e099ce86a559b21312a7f0c}{TValor\+Estado}} \&}]{valor,  }\item[{int}]{operacao }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ler ou gravar o melhor valor conhecido 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8cpp_source_l00535}{535}} of file \mbox{\hyperlink{TProcuraAdversa_8cpp_source}{TProcura\+Adversa.\+cpp}}.
+
+Here is the call graph for this function\+:
+% FIG 30
+Here is the caller graph for this function\+:
+% FIG 31
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classTProcuraAdversa_a68b3eb30c6967f5694b4d1f9f50c434c}\label{classTProcuraAdversa_a68b3eb30c6967f5694b4d1f9f50c434c} 
+\index{TProcuraAdversa@{TProcuraAdversa}!completo@{completo}}
+\index{completo@{completo}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{completo}{completo}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::completo\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+controlo para indicar se a procura foi realizada de forma completa (c.\+c. foi cortada) 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00057}{57}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+\Hypertarget{classTProcuraAdversa_a04c82c175bea1a911cdb5077d2ec1c02}\label{classTProcuraAdversa_a04c82c175bea1a911cdb5077d2ec1c02} 
+\index{TProcuraAdversa@{TProcuraAdversa}!indiceHT@{indiceHT}}
+\index{indiceHT@{indiceHT}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{indiceHT}{indiceHT}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::indice\+HT\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00113}{113}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+\Hypertarget{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36}\label{classTProcuraAdversa_acade7f564dd4f1a7ed993c3107e78d36} 
+\index{TProcuraAdversa@{TProcuraAdversa}!infinito@{infinito}}
+\index{infinito@{infinito}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{infinito}{infinito}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::infinito = 1000\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+valor de infinito (vitoria/derrota), omissao 1000 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00055}{55}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+\Hypertarget{classTProcuraAdversa_a72aaad862bedca505689513bec233c2a}\label{classTProcuraAdversa_a72aaad862bedca505689513bec233c2a} 
+\index{TProcuraAdversa@{TProcuraAdversa}!minimizar@{minimizar}}
+\index{minimizar@{minimizar}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{minimizar}{minimizar}}
+{\footnotesize\ttfamily bool TProcura\+Adversa\+::minimizar}
+
+
+
+o jogador actual deve minimizar o custo (ou maximizar caso tenha o valor falso) 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00053}{53}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+\Hypertarget{classTProcuraAdversa_ad3c1d255519bd00ea9adc042720b17cf}\label{classTProcuraAdversa_ad3c1d255519bd00ea9adc042720b17cf} 
+\index{TProcuraAdversa@{TProcuraAdversa}!nivelOK@{nivelOK}}
+\index{nivelOK@{nivelOK}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{nivelOK}{nivelOK}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::nivel\+OK = 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+profundidade máxima no método iterativo 
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00059}{59}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+\Hypertarget{classTProcuraAdversa_abfa149e4beec8447ec67c05adeb6fedc}\label{classTProcuraAdversa_abfa149e4beec8447ec67c05adeb6fedc} 
+\index{TProcuraAdversa@{TProcuraAdversa}!reutilizadoAvaliacao@{reutilizadoAvaliacao}}
+\index{reutilizadoAvaliacao@{reutilizadoAvaliacao}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{reutilizadoAvaliacao}{reutilizadoAvaliacao}}
+{\footnotesize\ttfamily int TProcura\+Adversa\+::reutilizado\+Avaliacao\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00119}{119}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+\Hypertarget{classTProcuraAdversa_adf778e7e00379e60276305c569b4cbc4}\label{classTProcuraAdversa_adf778e7e00379e60276305c569b4cbc4} 
+\index{TProcuraAdversa@{TProcuraAdversa}!valorHT@{valorHT}}
+\index{valorHT@{valorHT}!TProcuraAdversa@{TProcuraAdversa}}
+\doxysubsubsection{\texorpdfstring{valorHT}{valorHT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{TProcuraAdversa_8h_a8d5dcc924e099ce86a559b21312a7f0c}{TValor\+Estado}} TProcura\+Adversa\+::valor\+HT\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{TProcuraAdversa_8h_source_l00111}{111}} of file \mbox{\hyperlink{TProcuraAdversa_8h_source}{TProcura\+Adversa.\+h}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{TProcuraAdversa_8h}{TProcura\+Adversa.\+h}}\item 
+\mbox{\hyperlink{TProcuraAdversa_8cpp}{TProcura\+Adversa.\+cpp}}\end{DoxyCompactItemize}
