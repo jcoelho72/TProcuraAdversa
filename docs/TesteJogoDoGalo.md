@@ -6,17 +6,17 @@ Execução de exemplo com base no problema do Jogo do Galo. Pode acompanhar o te
 
 - [Ação 1 - Ver instâncias](#jdg-a1)
 - [Ação 2 - Explorar sucessores](#jdg-a2)
-- [Ação 3 - Procura em Largura](#jdg-a3)
-- [Ação 4 - Procura em Profundidade](#jdg-a4)
-- [Ação 5 - Heurística](#jdg-a5)
-- [Ação 6 - Melhor Primeiro](#jdg-a6)
-- [Ação 11 - Testes Empíricos](#jdg-a11)
+- [Ação 3 - MiniMax](#jdg-a3)
+- [Ação 4 - MiniMax com cortes Alfa/Beta](#jdg-a4)
+- [Ação 5 - Explorar todo o espaço de estados](#jdg-a5)
+- [Ação 6 - Testes Empíricos](#jdg-a6)
 
 
 ```entrada
 Teste TProcurasAdversas
 Problema:
   1 - Jogo do Galo
+  2 - Jogo Em Linha
 Opção: 1
 ```
 
@@ -30,7 +30,7 @@ Vamos entrar no Jogo do Galo, introduza: **1.**
 
 ```entrada
 Jogo do Galo
-P1(Algoritmo): MiniMax | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
+P1(Algoritmo): MiniMax alfa/beta | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
 P9(Limite): 0 | P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0
 P13(baralhar): 0 | P14(Ordenar): 2 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
@@ -63,7 +63,7 @@ Temos também a poda heurística, e poda cega, de modo a eliminar sucessores pel
 valor heurístico, ou simplesmente de forma aleatória (cega). Estes parametros podem ser necessários em jogos cuja ramificação
 seja muito elevada, não fazendo tanto sentido para situações de procura não adversa.
 
-Em tudo o resto estamos em situação idêntica, embora os algoritmos sejam distintos, tendo por omissão o algoritmo MiniMax.
+Em tudo o resto estamos em situação idêntica, embora os algoritmos sejam distintos, tendo por omissão o algoritmo MiniMax alfa/beta.
 
 Introduza: **1.** para inicialiar novo jogo.
 
@@ -79,8 +79,9 @@ Jogo do Galo
 _______________________________________________________________________________
 ```
 
-Podemos ver que há apenas uma instância, com o tabuleiro inicial. Neste jogo há apenas uma instância, a posição inicial.
-Podemos ver a borda do tabuleiro com indicação da coluna em letras, e linhas em números. Cada casa fica identificada de forma unívoca.
+Podemos ver que há apenas uma instância, com o tabuleiro inicial. 
+Podemos ver a borda do tabuleiro com indicação da coluna em letras, 
+e linhas em números. Cada casa fica identificada de forma unívoca.
 
 
 \anchor jdg-a2
@@ -134,10 +135,10 @@ g:0 h:-1000 3|24|28
 Ações:
 Sem sucessores.
 Jogo do Galo
-P1(Algoritmo): MiniMax | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
+P1(Algoritmo): MiniMax alfa/beta | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
 P9(Limite): 0 | P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0
-P13(baralhar): 0 | P14(Ordenar): 0 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
+P13(baralhar): 0 | P14(Ordenar): 2 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
 [Estatísticas] expansões 3 | gerações 24 | avaliações 28
   A B C
 1 x . o 1
@@ -167,12 +168,18 @@ Em vez das 9 possíveis ações, restam 3 ações, a1, b1 e b2.
 Todas as outras ações conduzem a estados que podem ser convertidos nestes, com uma ou mais de 3 simetrias:
 horizontal, vertical, diagonal. Assim, não é necessário explorá-los. 
 
-Introduza: **b1; *ENTER*.**
+Introduza: **1; *ENTER*.**
 
 ```entrada
-Sucessor [1-3, ação(ões), exe]:b1
-Executadas 1 ações com sucesso.
-g:0 2|8|10
+g:0 1|3|4
+  A B C
+1 . . . 1
+2 . . . 2
+3 . . . 3
+  A B C
+Ações: a1 b1 b2
+Sucessor [1-3, ação(ões), exe]:2
+g:0 2|8|9
   A B C
 1 . x . 1
 2 . . . 2
@@ -181,13 +188,13 @@ g:0 2|8|10
 Ações: a1 a2 b2 a3 b3
 Sucessor [1-5, ação(ões), exe]:
 ```
-
+Este
 Temos agora a1, mas não c1 (obtido por simetria vertical). Do mesmmo modo temos a2, mas não c2, e a3 mas não c3.
 Já b2 e b3 não têm estados simétricos. 
 
 Assim, reduzimos consideravelmente a ramificação inicial, bem como os estados existentes no geral.
 
-No entanto, tal como referido na ação 1, não devemos ignorar repetidos, podemos estar a eliminar alternativas importabntes
+No entanto, tal como referido na ação 1, não podemos ignorar repetidos, já que podemos estar a eliminar alternativas importantes
 num estado, apenas porque ocorrem em outro. Mas com esta experiência podemos ver a importância das simetrias.
 
 O parâmetro de estados repetidos deve ficar nas procuras adversas em igonrar, e o de ordenação em 2.
@@ -430,19 +437,19 @@ Vamos agora executar mais algumas jogadas, e ver a execução final com debug a 
 Introduza: **5; 5; 4; 2; 4; *ENTER*; 5.**
 
 ```entrada
-g:0
+ HT: reutilização 0,35 vezes g:0
   A B C
 1 x x o 1
 2 . . . 2
 3 . . o 3
   A B C
-  #g:1 1|5 a2
+  #g:1 1|5|5 a2
   /  A B C
   /1 x x o 1
   /2 x . . 2
   /3 . . o 3
   /  A B C
-  /  +g:2 2|9 b2
+  /  +g:2 2|9|5 b2
   /  |  A B C
   /  |1 x x o 1
   /  |2 x o . 2
@@ -450,7 +457,7 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  +g:2 2|9|1 c2
+  /  +g:2 2|9|6 c2
   /  |  A B C
   /  |1 x x o 1
   /  |2 x . o 2
@@ -458,28 +465,14 @@ g:0
   /  |  A B C
   /  | 998
   /  |(998)
-  /  +g:2 2|9|2 a3
-  /  |  A B C
-  /  |1 x x o 1
-  /  |2 x . . 2
-  /  |3 o . o 3
-  /  |  A B C
-  /  | 0
-  /  +g:2 2|9|3 b3
-  /     A B C
-  /   1 x x o 1
-  /   2 x . . 2
-  /   3 . o o 3
-  /     A B C
-  /    0
   /(998)
-  #g:1 2|9|4 a3
+  #g:1 2|9|7 a3
   /  A B C
   /1 x x o 1
   /2 . . . 2
   /3 x . o 3
   /  A B C
-  /  +g:2 3|13|4 a2
+  /  +g:2 3|13|7 a2
   /  |  A B C
   /  |1 x x o 1
   /  |2 o . . 2
@@ -487,14 +480,14 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  +g:2 3|13|5 b2
+  /  +g:2 3|13|8 b2
   /  |  A B C
   /  |1 x x o 1
   /  |2 . o . 2
   /  |3 x . o 3
   /  |  A B C
   /  | 0
-  /  +g:2 3|13|6 c2
+  /  +g:2 3|13|9 c2
   /  |  A B C
   /  |1 x x o 1
   /  |2 . . o 2
@@ -502,20 +495,13 @@ g:0
   /  |  A B C
   /  | 998
   /  |(998)
-  /  +g:2 3|13|7 b3
-  /     A B C
-  /   1 x x o 1
-  /   2 . . . 2
-  /   3 x o o 3
-  /     A B C
-  /    0
-  #g:1 3|13|8 c2
+  #g:1 3|13|10 c2
   /  A B C
   /1 x x o 1
   /2 . . x 2
   /3 . . o 3
   /  A B C
-  /  +g:2 4|17|8 a2
+  /  +g:2 4|17|10 a2
   /  |  A B C
   /  |1 x x o 1
   /  |2 o . x 2
@@ -523,21 +509,21 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  +g:2 4|17|9 b2
+  /  +g:2 4|17|11 b2
   /  |  A B C
   /  |1 x x o 1
   /  |2 . o x 2
   /  |3 . . o 3
   /  |  A B C
   /  | 0
-  /  +g:2 4|17|10 a3
+  /  +g:2 4|17|12 a3
   /  |  A B C
   /  |1 x x o 1
   /  |2 . . x 2
   /  |3 o . o 3
   /  |  A B C
   /  | 0
-  /  +g:2 4|17|11 b3
+  /  +g:2 4|17|13 b3
   /     A B C
   /   1 x x o 1
   /   2 . . x 2
@@ -545,13 +531,13 @@ g:0
   /     A B C
   /    0
   /(0)
-  #g:1 4|17|12 b2
+  #g:1 4|17|14 b2
   /  A B C
   /1 x x o 1
   /2 . x . 2
   /3 . . o 3
   /  A B C
-  /  +g:2 5|21|12 a2
+  /  +g:2 5|21|14 a2
   /  |  A B C
   /  |1 x x o 1
   /  |2 o x . 2
@@ -559,7 +545,7 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  +g:2 5|21|13 c2
+  /  +g:2 5|21|15 c2
   /  |  A B C
   /  |1 x x o 1
   /  |2 . x o 2
@@ -567,20 +553,6 @@ g:0
   /  |  A B C
   /  | 998
   /  |(998)
-  /  +g:2 5|21|14 a3
-  /  |  A B C
-  /  |1 x x o 1
-  /  |2 . x . 2
-  /  |3 o . o 3
-  /  |  A B C
-  /  | 0
-  /  +g:2 5|21|15 b3
-  /     A B C
-  /   1 x x o 1
-  /   2 . x . 2
-  /   3 . o o 3
-  /     A B C
-  /    0
   #g:1 5|21|16 b3
      A B C
    1 x x o 1
@@ -610,22 +582,15 @@ g:0
      |  A B C
      | 998
      |(998)
-     +g:2 6|25|19 a3
-        A B C
-      1 x x o 1
-      2 . . . 2
-      3 o x o 3
-        A B C
-       0
 P1:1 P2:4 P3:1 P4:1 P5:10 P6:0 P7:0 P8:0 P9:3 P10:1
 P11:100 P12:0 P13:0 P14:2 P15:0 P16:0
-Resultado: 0 (0,268s)
+Resultado: 0 (0,162s)
 Jogo do Galo
 P1(Algoritmo): MiniMax | P2(Debug): completo | P3(Ver): 1 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
 P9(Limite): 3 | P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0
 P13(baralhar): 0 | P14(Ordenar): 2 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
-[Estatísticas] expansões 6 | gerações 25 | avaliações 20
+[Estatísticas] expansões 6 | gerações 25 | avaliações 19
   A B C
 1 x x o 1
 2 . . x 2
@@ -639,6 +604,9 @@ O valor dos estados em que O ganha é 998 e não 1000. Ao valor do infinito é s
 Esta ação tem o efeito de uma derrota de X que seja mais uma jogada, tenha valer 997. Como O pretende maximizar, pelo que prefere
 sempre as vitórias mais curtas, tal como o X, e ambos preferem as derrotas mais longas.
 
+Notar ainda para a frase inicial: "HT: reutilização 0,35 vezes". Ao ser limpa a hashtable com o registo dos estados na procura anterior,
+é verificado quantas vezes um estado guardado foi reutilizado, poupando assim uma execução do algoritmo para esse estado.
+
 
 \anchor jdg-a4
 ## Ação 4 - MiniMax com cortes Alfa/Beta
@@ -647,36 +615,66 @@ Vamos agora ver como se comporta a procura da ação anterior, se ativarmos os c
 Introduza: **1; 4; 1; 2; 2; 4; 3; 1; 9; 3; *ENTER*; 5;
 
 ```entrada
-g:0
+ HT: reutilização 0,25 vezes g:0
   A B C
 1 . . . 1
 2 . . . 2
 3 . . . 3
   A B C
-  #g:1 1|9 a1
+  #g:1 1|9|3 a1
   /  A B C
   /1 x . . 1
   /2 . . . 2
   /3 . . . 3
   /  A B C
-  /  +
+  /  +g:2 2|17|3 b1
+  /  |  A B C
+  /  |1 x o . 1
+  /  |2 . . . 2
+  /  |3 . . . 3
+  /  |  A B C
+  /  | 0
   /  |(0)
+  /  +g:2 2|17|4 c1
+  /  |  A B C
+  /  |1 x . o 1
+  /  |2 . . . 2
+  /  |3 . . . 3
+  /  |  A B C
+  /  | 0
+  /  +
+  /  +g:2 2|17|5 b2
+  /  |  A B C
+  /  |1 x . . 1
+  /  |2 . o . 2
+  /  |3 . . . 3
+  /  |  A B C
+  /  | 0
+  /  +g:2 2|17|6 c2
+  /  |  A B C
+  /  |1 x . . 1
+  /  |2 . . o 2
+  /  |3 . . . 3
+  /  |  A B C
+  /  | 0
   /  +
   /  +
-  /  +
-  /  +
-  /  +
-  /  +
-  /  +
+  /  +g:2 2|17|7 c3
+  /     A B C
+  /   1 x . . 1
+  /   2 . . . 2
+  /   3 . . o 3
+  /     A B C
+  /    0
   /(0)
   #
-  #g:1 2|17 c2
+  #g:1 2|17|8 c2
   /  A B C
   /1 . . . 1
   /2 . . x 2
   /3 . . . 3
   /  A B C
-  /  +g:2 3|25 a1
+  /  +g:2 3|25|8 a1
   /  |  A B C
   /  |1 o . . 1
   /  |2 . . x 2
@@ -684,15 +682,29 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  > beta
-  #
-  #g:1 3|25|1 b2
+  /  > beta(0)
+  #g:1 3|25|9 b3
+  /  A B C
+  /1 . . . 1
+  /2 . . . 2
+  /3 . x . 3
+  /  A B C
+  /  +g:2 4|33|9 a1
+  /  |  A B C
+  /  |1 o . . 1
+  /  |2 . . . 2
+  /  |3 . x . 3
+  /  |  A B C
+  /  | 0
+  /  |(0)
+  /  > beta(0)
+  #g:1 4|33|9 b2
   /  A B C
   /1 . . . 1
   /2 . x . 2
   /3 . . . 3
   /  A B C
-  /  +g:2 4|33|1 a1
+  /  +g:2 5|41|9 a1
   /  |  A B C
   /  |1 o . . 1
   /  |2 . x . 2
@@ -700,20 +712,48 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  > beta
+  /  > beta(0)
   #
-  #
-  #
+  #g:1 5|41|10 b1
+  /  A B C
+  /1 . x . 1
+  /2 . . . 2
+  /3 . . . 3
+  /  A B C
+  /  +g:2 6|49|10 a1
+  /  |  A B C
+  /  |1 o x . 1
+  /  |2 . . . 2
+  /  |3 . . . 3
+  /  |  A B C
+  /  | 0
+  /  |(0)
+  /  > beta(0)
+  #g:1 6|49|11 a2
+  /  A B C
+  /1 . . . 1
+  /2 x . . 2
+  /3 . . . 3
+  /  A B C
+  /  +g:2 7|57|11 a1
+  /  |  A B C
+  /  |1 o . . 1
+  /  |2 x . . 2
+  /  |3 . . . 3
+  /  |  A B C
+  /  | 0
+  /  |(0)
+  /  > beta(0)
   #
 P1:2 P2:4 P3:1 P4:1 P5:10 P6:0 P7:0 P8:0 P9:3 P10:1
 P11:100 P12:0 P13:0 P14:2 P15:0 P16:0
-Resultado: 0 (0,088s)
+Resultado: 0 (0,083s)
 Jogo do Galo
 P1(Algoritmo): MiniMax alfa/beta | P2(Debug): completo | P3(Ver): 1 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
 P9(Limite): 3 | P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0
 P13(baralhar): 0 | P14(Ordenar): 2 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
-[Estatísticas] expansões 4 | gerações 33 | avaliações 2
+[Estatísticas] expansões 7 | gerações 57 | avaliações 11
   A B C
 1 x . . 1
 2 . . . 2
@@ -722,18 +762,19 @@ P13(baralhar): 0 | P14(Ordenar): 2 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
 _______________________________________________________________________________
 ```
 
-Na procura na jogada inicial temos as mesmas 4 expansões e 33 gerações, mas temos apenas 2 avaliações.
-Claro que não é suficiente, mas como já tinhamos realizado uma procura dste tipo,
-parte dos estados já está na hashtable e não é reavaliado.
-
-Houve cortes beta. Vamos ver com atenção:
+Temos na procura vários cortes beta. Vamos ver com atenção:
 - o primeiro ramo com X em a1 foi explorado por completo
 - no final desse ramo aparece "/(0)". Significa que beta (que minimiza) tem uma alternativa explorada que garante pelo menos 0.
 - no ramo com X em c2, vamos dar a um estado de valor 0. Assim, para c2, temos o adversário que pode obter 0, mas para isso X vai para o ramo anterior e obtém 0, pelo que este ramo pode ser cortado
+- notar que foi analizado o estado em que X joga b3 (e b1 e a2), que é simétrico de c2. Teve de ser já que o resultado do estado com X em c2 não é exato,
+  e neste caso não pode ser utilizado. Dependente se o resultado é obtido após corte alfa ou beta, será um lowerbound ou upperbound 
+  do valor real, sendo utilizado em conformidade.
+- notar que o estado com X em a1, foi explorado completamente, tendo sido memorizado, e por esse motivo os estados com X em a3, c1 e c3, não são explorados, já que são reutilizados.
 - no ramo com X em b2 ocorre exatamente o mesmo, após se explorar um ramo, sabe-se que o adversário pode obter 0, pelo que não mais interessa.
 
-Como resultado dos dois corte beta, temos menos avaliações. Mas se os cortes tivessem ocorrido mais cedo, poderiamos ter menos expansões,
-mas como estamos com uma árvore muito pequena, tal não ocorre.
+Como resultado dos corte, temos menos avaliações, mas podemos ter menos memorizações ou que por sua vez pode aumentar
+as avaliações. Se a ramificação é alta, valerá sempre a pena o alfa/beta, se a ramificação é baixa, pode ser compensador
+não ter o alfa/beta de modo a que fiquem memorizados estado com o valor exato.
 
 Vamos avaçar para o momento em que há estados finais visiveis.
 Introduza: **5; 5; 5; 5; 5; 5.**
@@ -745,13 +786,13 @@ g:0
 2 . . x 2
 3 . o o 3
   A B C
-  #g:1 1|3 a2
+  #g:1 1|3|3 a2
   /  A B C
   /1 x x o 1
   /2 x . x 2
   /3 . o o 3
   /  A B C
-  /  +g:2 2|5 b2
+  /  +g:2 2|5|3 b2
   /  |  A B C
   /  |1 x x o 1
   /  |2 x o x 2
@@ -759,7 +800,7 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  +g:2 2|5|1 a3
+  /  +g:2 2|5|4 a3
   /     A B C
   /   1 x x o 1
   /   2 x . x 2
@@ -768,13 +809,13 @@ g:0
   /    998
   /   (998)
   /(998)
-  #g:1 2|5|2 b2
+  #g:1 2|5|5 b2
   /  A B C
   /1 x x o 1
   /2 . x x 2
   /3 . o o 3
   /  A B C
-  /  +g:2 3|7|2 a2
+  /  +g:2 3|7|5 a2
   /  |  A B C
   /  |1 x x o 1
   /  |2 o x x 2
@@ -782,7 +823,7 @@ g:0
   /  |  A B C
   /  | 0
   /  |(0)
-  /  +g:2 3|7|3 a3
+  /  +g:2 3|7|6 a3
   /     A B C
   /   1 x x o 1
   /   2 . x x 2
@@ -790,13 +831,13 @@ g:0
   /     A B C
   /    998
   /   (998)
-  #g:1 3|7|4 a3
+  #g:1 3|7|7 a3
      A B C
    1 x x o 1
    2 . . x 2
    3 x o o 3
      A B C
-     +g:2 4|9|4 a2
+     +g:2 4|9|7 a2
      |  A B C
      |1 x x o 1
      |2 o . x 2
@@ -804,7 +845,7 @@ g:0
      |  A B C
      | 0
      |(0)
-     +g:2 4|9|5 b2
+     +g:2 4|9|8 b2
         A B C
       1 x x o 1
       2 . o x 2
@@ -814,13 +855,13 @@ g:0
    (0)
 P1:2 P2:4 P3:1 P4:1 P5:10 P6:0 P7:0 P8:0 P9:3 P10:1
 P11:100 P12:0 P13:0 P14:2 P15:0 P16:0
-Resultado: 0 (0,123s)
+Resultado: 0 (0,049s)
 Jogo do Galo
 P1(Algoritmo): MiniMax alfa/beta | P2(Debug): completo | P3(Ver): 1 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
 P9(Limite): 3 | P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0
 P13(baralhar): 0 | P14(Ordenar): 2 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
-[Estatísticas] expansões 4 | gerações 9 | avaliações 6
+[Estatísticas] expansões 4 | gerações 9 | avaliações 9
   A B C
 1 x x o 1
 2 . . x 2
@@ -835,7 +876,6 @@ e possam potenciar o número de cortes.
 
 Naturalmente que estes cortes tornam-se mais significativos em árvores de procura maiores.
 
-
 \anchor jdg-a5
 ## Ação 5 - Explorar todo o espaço de estados
 
@@ -843,12 +883,12 @@ Vamos agora procurar explorar todo o espaço de estados, o que é possível apen
 Para que a hashtable não poupe demasiados estados, vamos nesta ação arrancar com o programa em cada teste.
 
 Vamos começar com o MiniMax, sem a ordenação. Vamos colocar o limite a 20, para não interferir
-Após reiniciar, introduza: **1; 4; 9; 20; 14; 0; *ENTER*; 5.**
+Após reiniciar, introduza: **1; 4; 1; 1; 9; 20; 14; 0; *ENTER*; 5.**
 
 ```entrada
 P1:1 P2:0 P3:4 P4:1 P5:10 P6:0 P7:0 P8:0 P9:20 P10:1
 P11:100 P12:0 P13:0 P14:0 P15:0 P16:0
-Resultado: 0 (0,106s)
+Resultado: 0 (0,111s)
 Jogo do Galo
 P1(Algoritmo): MiniMax | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
@@ -865,8 +905,8 @@ _______________________________________________________________________________
 Podemos ver que há 318517 estados gerados, um valor reduzido para os tempos atuais.
 O resultado do jogo é um empate.
 
-Vamos agora ver o efeito de não eliminar a ordenação. 
-Após arrancar, introduza:  **1; 4; 9; 20; *ENTER*; 5.**
+Vamos agora ver o efeito da ordenação. 
+Após arrancar, introduza:  **1; 4; 9; 20; 14; 2; *ENTER*; 5.**
 
 ```entrada
 P1:1 P2:0 P3:4 P4:1 P5:10 P6:0 P7:0 P8:0 P9:20 P10:1
@@ -910,7 +950,7 @@ _______________________________________________________________________________
 ```
 O número de estados gerados é de 27362, em vez de 318517 para o MiniMax sem cortes alfa/beta.
 Podemos observar um grande ganho. Vamos agora ver qual o resultado do alfa/beta com ordenação.
-Após arrancar, introduza:  **1; 4; 1; 2; 9; 20; *ENTER*; 5.**
+Após arrancar, introduza:  **1; 4; 1; 2; 9; 20; 14; 2; *ENTER*; 5.**
 
 ```entrada
 P1:2 P2:0 P3:4 P4:1 P5:10 P6:0 P7:0 P8:0 P9:20 P10:1
@@ -935,7 +975,7 @@ Não reduz, mas em termos de avaliações temos 806, enquanto sem cortes alfa/be
 
 O número de estados gerados é até superior, relativamente sem cortes alfa/beta,
 porque a reutilização das procuras é superior ao algoritmo sem cortes alfa/beta, 
-em que todos os resultados são exatos. Nos cortes alfa/beta alguns resultados são influenciados com o 
+em que todos os resultados são exatos. Conforme já referido, nos cortes alfa/beta alguns resultados são influenciados com o 
 alfa/beta existente, sendo um lowerbound ou upperbound do real valor, e podem ser utilizados apenas se o alfa/beta
 atual for compatível. Assim, a utilzação de cortes alfa/beta é mais rápido no imediato,
 mas guarda-se menos informação para procuras futuras, e reutilização.
@@ -943,7 +983,6 @@ mas guarda-se menos informação para procuras futuras, e reutilização.
 Naturalmente que esta árvore de procura é pequena, pelo que estes resultados têm também de ser interpretados com cuidado.
 
 O problema sendo pequeno, não faz sentido fazer uma heurística.
-
 
 \anchor jdg-a6
 ## Ação 6 - Testes Empíricos
@@ -955,19 +994,16 @@ O único parametro que faz diferença, atendendo a que os tempos de execução s
 Vamos colocar em competição várias configurações a diferentes profundidades, e pretendemos conseguir observar
 maior desempenho nas procuras de maior profundidade.
 
-Temos também de ter o cuidado de desligar a utilização das hashtables, para que o resultado de uma procura não passe para a outra.
+Temos também de ter o cuidado de desligar a utilização das hashtables, para observer sem perturbações o ganho da profundidade.
 
 Introduza: 
 - **4; 1; 2; 9; 20; 14; 0; *ENTER*; 6; *EMNTER*.**
 - **4; 9; 7; *ENTER*; 6; *EMNTER*.**
-- **4; 9; 6; *ENTER*; 6; *EMNTER*.**
 - **4; 9; 5; *ENTER*; 6; *EMNTER*.**
-- **4; 9; 4; *ENTER*; 6; *EMNTER*.**
 - **4; 9; 3; *ENTER*; 6; *EMNTER*.**
-- **4; 9; 2; *ENTER*; 6; *EMNTER*.**
 
 ```entrada
-Parametros comuns a 7 configurações:
+Parametros comuns a 4 configurações:
 P1:2 P2:0 P3:4 P4:1 P5:10 P6:0 P7:0 P8:0 P10:1 P11:100
 P12:0 P13:0 P14:0 P15:0 P16:0
 --- Configuração 1
@@ -975,45 +1011,58 @@ P9:20
 --- Configuração 2
 P9:7
 --- Configuração 3
-P9:6
---- Configuração 4
 P9:5
---- Configuração 5
-P9:4
---- Configuração 6
+--- Configuração 4 --- atual
 P9:3
---- Configuração 7 --- atual
-P9:2
 ```
 
-Temos 7 configurações. Como a procura é adversa, é necessário duas configurações, ou seja, jogos entre configurações para avaliar.
+Temos 4 configurações. Como a procura é adversa, é necessário duas configurações, ou seja, jogos entre configurações para avaliar.
 Assim, em vez da tabela com desempenho individual, há jogos entre todas as configurações, e reportado apenas a tabela de torneio final.
 
 Podemos ainda ver as soluções, que aqui equivale a observar os jogos. 
-Como são 7 configurações, haverá grande quantidade de jogos, de todos contra todos e de ambas as cores. 
+Como são 4 configurações, haverá grande quantidade de jogos, de todos contra todos e de ambas as cores. 
 Por outro lado os jogos são muito rápidos. Assim, não vamos querer ver os jogos.
 Se existissem vários tabuleiros iniciais, ou vários tamanhos, ou seja, instâncias de jogo, podiamos indicar as instâncias a serem utilizadas. 
 
 Introduza: **7; 0; 1; 1**
 
 ```entrada
+Match 1 vs 2:
+ Instância 1:  Empate
+Match 1 vs 3:
+ Instância 1:  Vitória Branca
+Match 1 vs 4:
+ Instância 1:  Vitória Branca
+Match 2 vs 1:
+ Instância 1:  Empate
+Match 2 vs 3:
+ Instância 1:  Vitória Branca
+Match 2 vs 4:
+ Instância 1:  Vitória Branca
+Match 3 vs 1:
+ Instância 1:  Empate
+Match 3 vs 2:
+ Instância 1:  Empate
+Match 3 vs 4:
+ Instância 1:  Vitória Branca
+Match 4 vs 1:
+ Instância 1:  Empate
+Match 4 vs 2:
+ Instância 1:  Empate
+Match 4 vs 3:
+ Instância 1:  Empate
 Torneio (#instâncias melhores):
- |-01-|-02-|-03-|-04-|-05-|-06-|-07-|
- 1    |  0 |  1 |  1 |  1 |  1 |  1 |  6
- |----|----|----|----|----|----|----|
- 2  0 |    |  1 |  1 |  1 |  1 |  1 |  6
- |----|----|----|----|----|----|----|
- 3  0 |  0 |    |  1 |  1 |  1 |  1 |  3
- |----|----|----|----|----|----|----|
- 4  0 |  0 |  0 |    |  1 |  1 |  1 |  1
- |----|----|----|----|----|----|----|
- 5  0 |  0 |  0 |  0 |    |  1 |  1 | -4
- |----|----|----|----|----|----|----|
- 6  0 |  0 |  0 |  0 |  1 |    |  1 | -4
- |----|----|----|----|----|----|----|
- 7 -1 | -1 | -1 | -1 |  1 |  1 |    | -8
- |----|----|----|----|----|----|----|
-Parametros comuns a 7 configurações:
+ |-01-|-02-|-03-|-04-|
+ 1    |  0 |  1 |  1 |  2
+ |----|----|----|----|
+ 2  0 |    |  1 |  1 |  2
+ |----|----|----|----|
+ 3  0 |  0 |    |  1 | -1
+ |----|----|----|----|
+ 4  0 |  0 |  0 |    | -3
+ |----|----|----|----|
+Tempos: 0,033s 0,009s 0,004s 0,000s
+Parametros comuns a 4 configurações:
 P1(Algoritmo): MiniMax alfa/beta | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
 P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
 P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0 | P13(baralhar): 0
@@ -1023,16 +1072,32 @@ P9(Limite): 20
 --- Configuração 2
 P9(Limite): 7
 --- Configuração 3
-P9(Limite): 6
---- Configuração 4
 P9(Limite): 5
---- Configuração 5
-P9(Limite): 4
---- Configuração 6
+--- Configuração 4
 P9(Limite): 3
---- Configuração 7
-P9(Limite): 2
+
+Jogo do Galo
+P1(Algoritmo): MiniMax alfa/beta | P2(Debug): nada | P3(Ver): 4 | P4(Seed): 1
+P5(Tempo): 10 | P6(Gerações): 0 | P7(Expansões): 0 | P8(Avaliações): 0
+P9(Limite): 3 | P10(Repetidos): ignorar | P11(pesoAStar): 100 | P12(ruido): 0
+P13(baralhar): 0 | P14(Ordenar): 0 | P15(PodaHeuristica): 0 | P16(PodaCega): 0
+[Estatísticas] expansões 1 | gerações 1 | avaliações 1
+  A B C
+1 . . . 1
+2 . . . 2
+3 . . . 3
+  A B C
+_______________________________________________________________________________
 ```
-Podemos ver que a configuração 1 e 2 são igualmente boas. Assim, é suficiente procura em profundidade 7 para obter a estratégia vencedora. 
+Podemos ver os resultados dos jogos, seguido do torneio, em que as duas primeiras configurações são igualmente boas.
+Assim, é suficiente procura em profundidade 7 para obter a estratégia vencedora. 
 As restantes configurações, à medida que se reduz o nível de profundidade, a qualidade baixa, como seria de esperar.
+
+Notar na informação da linha com os tempos: "Tempos: 0,033s 0,009s 0,004s 0,000s"
+Estes tempos são o tempo total de jogo de cada configuração, para todos os jogos. 
+Profundidades maiores o tempo é superior.
+
+Este é no entanto um jogo muito pequeno para explorar, pelo que a sua generalização para os Jogos Em Linha, 
+permitirá explorar melhor as particularidades das procuras adversas.
+
 

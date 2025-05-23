@@ -115,4 +115,6 @@ protected:
 	bool ValorEstado(TValorEstado& valor, int operacao);
 	/// @brief ver se o valor obtido é utilizável no contexto atual
 	bool Utilizavel(TValorEstado& valor, int nivel, int alfa, int beta);
+
+	static int reutilizadoAvaliacao; // número de vezes que uma avaliação é reutilizada
 };

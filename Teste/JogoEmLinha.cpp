@@ -35,10 +35,10 @@ void CJogoEmLinha::SolucaoVazia(void)
 {
 	TJogoEmLinha instancias[] = {
 		{3,3,3,regular}, // Jogo do Galo
-		{3,3,4,regular}, // 3 em linha 3x4
 		{4,4,4,regular}, // 4 em linha 4x4
 		{4,4,6,regular}, // 4 em linha 4x6
-		{4,7,7,gravidade}, // 4 em linha 7x7 gravidade
+		{4,6,7,gravidade}, // 4 em linha 6x7 gravidade
+		{4,6,14,gravidade}, // 4 em linha 6x14 gravidade
 		{5,8,8,regular}, // 5 em linha 8x8
 		{5,8,12,regular}, // 5 em linha 8x12
 		{5,9,9,regular}, // 5 em linha 9x9

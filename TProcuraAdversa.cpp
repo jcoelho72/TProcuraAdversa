@@ -11,7 +11,8 @@ bool TProcuraAdversa::completo;
 TValorEstado TProcuraAdversa::valorHT[TAMANHO_HASHTABLE];
 // profundidade máxima no método iterativo
 int TProcuraAdversa::nivelOK = 0;
-
+// número de vezes que uma avaliação é reutilizada
+int TProcuraAdversa::reutilizadoAvaliacao; 
 
 TProcuraAdversa::TProcuraAdversa(void) : minimizar(true), indiceHT(-1)
 {
@@ -29,11 +30,11 @@ void TProcuraAdversa::ResetParametros()
 
 	// adicionar parâmetros da procura adversa
 	// alterar algoritmos
-	parametro[algoritmo] = { "Algoritmo",1,1,2,"Seleção do algoritmo de procura adversa base.", nomesAlgoritmos };
+	parametro[algoritmo] = { "Algoritmo",2,1,2,"Seleção do algoritmo de procura adversa base.", nomesAlgoritmos };
 
 	parametro[limite].valor = 0; // procura iterativa preferencial
 	parametro[estadosRepetidos].valor = 1; // nas procuras adversas, não utilizar este parametro (utilizar ordenar=2)
-	parametro[baralharSuc].valor = 1; // obter jogos distintos
+	parametro[baralharSuc].valor = 0; // de omissão está com valor 0, para facilitar nos testes, mas deve ficar com 1 para obter jogos distintos
 
 	// O "infinito" é dependente do problema, não faz sentido alterar senão no código
 	parametro.Add({ "Ordenar",2,0,2, "0 não ordena sucessores, 1 ordena por heurística, 2 usa o melhor valor de procuras anteriores.",NULL });
@@ -409,11 +410,14 @@ void TProcuraAdversa::TesteEmpirico(int inicio, int fim, bool mostrarSolucoes) {
 	}
 
 	TVector<TVector<int>> torneio; // pares de configurações: 1 melhor, 0 igual -1 pior
+	TVector<int> tempoTotal; // tempo total de resposta, em todos os jogos
 	torneio.Count(configuracoes.Count());
 	for (int i = 0; i < configuracoes.Count(); i++) {
 		torneio[i].Count(configuracoes.Count());
 		torneio[i].Reset(0);
 	}
+	tempoTotal.Count(configuracoes.Count());
+	tempoTotal.Reset(0);
 
 	// dois jogadores, brancas é o primeiro a jogar, pretas é o segundo
 	for (int brancas = 0; brancas < configuracoes.Count(); brancas++)
@@ -433,6 +437,7 @@ void TProcuraAdversa::TesteEmpirico(int inicio, int fim, bool mostrarSolucoes) {
 						inicioCorrida = clock();
 						LimparEstatisticas(inicioCorrida);
 						resultado = ExecutaAlgoritmo();
+						tempoTotal[njogada % 2 == 0 ? brancas : pretas] += clock() - inicioCorrida;
 						if (solucao != NULL) { // efetuado um lance
 							const char* strAcao = Acao(solucao);
 							Copiar(solucao);
@@ -471,6 +476,9 @@ void TProcuraAdversa::TesteEmpirico(int inicio, int fim, bool mostrarSolucoes) {
 			}
 
 	MostrarTorneio(torneio, true);
+	printf("\nTempos: ");
+	for (int i = 0; i < tempoTotal.Count(); i++)
+		printf("%.3fs ", 1.0 * tempoTotal[i] / CLOCKS_PER_SEC);
 	MostrarConfiguracoes(1);
 	printf("\n");
 	ConfiguracaoAtual(atual, gravar);
@@ -482,6 +490,17 @@ void TProcuraAdversa::TesteEmpirico(int inicio, int fim, bool mostrarSolucoes) {
 
 int TProcuraAdversa::ExecutaAlgoritmo() {
 	int resultado = -1;
+	if (parametro[ordenarSucessores].valor == 2) {
+		parametro[estadosRepetidos].valor = gerados;
+		if (reutilizadoAvaliacao > 0 && parametro[nivelDebug].valor >= 1) {
+			float taxa = 1.0 * reutilizadoAvaliacao / colocadosHT;
+			LimparHT();
+			printf(" HT: reutilização %.2f vezes ", taxa);
+		} else
+			LimparHT();
+		reutilizadoAvaliacao = 0;
+		parametro[estadosRepetidos].valor = ignorados;
+	}
 	switch (parametro[algoritmo].valor) {
 	case 1: resultado = MiniMax(Dominio(parametro[limite].valor, 0)); break;
 	case 2: resultado = MiniMaxAlfaBeta(Dominio(parametro[limite].valor, 0)); break;
@@ -501,13 +520,14 @@ bool TProcuraAdversa::ExisteHT() {
 	// se estiver lá outro elemento, substitui
 	unsigned int original = Hash();
 	unsigned int indice = original % TAMANHO_HASHTABLE;
+	indiceHT = indice;
 	for (int i = 0; i < tamanhoCodificado; i++) {
 		if (elementosHT[indice][i] != estadoCodHT[i]) {
 			SubstituirHT(indice);
+			colocadosHT++;
 			return false; // não existia
 		}
 	}
-	indiceHT = indice;
 	return false; // é como se não existisse, mas está lá
 }
 
@@ -519,6 +539,7 @@ bool TProcuraAdversa::ValorEstado(TValorEstado& valor, int operacao) {
 	if (operacao == ler) {
 		if (indiceHT >= 0 && valorHT[indiceHT].nivel >= 0) {
 			valor = valorHT[indiceHT];
+			reutilizadoAvaliacao++;
 			return true;
 		}
 		return false;
