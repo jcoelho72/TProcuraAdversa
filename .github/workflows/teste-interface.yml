@@ -1,0 +1,40 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Instalar dependências
+      run: sudo apt-get update && sudo apt-get install -y g++ doxygen
+    - name: Compilar
+      run: make
+    - name: Executar testes
+      run: make check
+    - name: make distcheck
+      run: make distcheck
+    - name: Gerar documentação
+      run: doxygen Doxyfile
+    - name: Gerar layout.xml se não existir
+      run: |
+        if [ ! -f layout.xml ]; then
+          doxygen -l layout.xml
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add layout.xml
+          git commit -m "Adicionar layout.xml gerado automaticamente"
+          git push
+        fi
+    - name: Publicar documentação no GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+          branch: gh-pages
+          folder: docs/html

@@ -306,7 +306,7 @@ A heurística neste problema é a deteção de estado final, pelo que vemos 0 co
 Vamos agora colocar P14(Ordenar): 2, e repetir a procura. Introduza: **1; 4; 14; 2; *ENTER*; 5.**
 
 Vamos agora ver os estados completos, e não apenas as ações, e repetir nova procura.
-Introduza: **4; 3; 1; *ENTER*; 5
+Introduza: **4; 3; 1; *ENTER*; 5.**
 
 ```entrada
 g:0
