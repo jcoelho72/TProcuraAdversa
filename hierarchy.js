@@ -4,15 +4,9 @@ var hierarchy =
     [ "SIndice", "structSIndice.html", null ],
     [ "SJogoEmLinha", "structSJogoEmLinha.html", null ],
     [ "SParametro", "structSParametro.html", null ],
-    [ "SParametrosEspaco", "structSParametrosEspaco.html", null ],
     [ "SResultado", "structSResultado.html", null ],
     [ "SValorEstado", "structSValorEstado.html", null ],
     [ "TProcuraConstrutiva", "classTProcuraConstrutiva.html", [
-      [ "CAspirador", "classCAspirador.html", null ],
-      [ "COitoDamas", "classCOitoDamas.html", null ],
-      [ "CParticao", "classCParticao.html", null ],
-      [ "CProblemaArtificial", "classCProblemaArtificial.html", null ],
-      [ "CPuzzle8", "classCPuzzle8.html", null ],
       [ "TProcuraAdversa", "classTProcuraAdversa.html", [
         [ "CJogoDoGalo", "classCJogoDoGalo.html", null ],
         [ "CJogoEmLinha", "classCJogoEmLinha.html", null ]

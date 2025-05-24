@@ -1,7 +1,26 @@
 var searchData=
 [
-  ['8_0',['Teste Puzzle 8',['../teste_puzzle8.html',1,'']]],
-  ['8_20damas_1',['Teste 8 Damas',['../teste_8damas.html',1,'']]],
-  ['8_20idastar_2',['Ação 8 - IDAStar',['../teste_puzzle8.html#autotoc_md67',1,'']]],
-  ['8_20resolver_20outra_20instância_3',['Ação 8 - Resolver outra instância',['../teste_aspirador1.html#autotoc_md46',1,'']]]
+  ['ação_201_20ver_20instâncias_0',['ação 1 ver instâncias',['../teste_jogo_em_linha.html#autotoc_md8',1,'Ação 1 - Ver instâncias'],['../teste_jogo_do_galo.html#autotoc_md1',1,'Ação 1 - Ver instâncias']]],
+  ['ação_202_20explorar_20sucessores_1',['Ação 2 - Explorar sucessores',['../teste_jogo_do_galo.html#autotoc_md2',1,'']]],
+  ['ação_202_20heurística_2',['Ação 2 - Heurística',['../teste_jogo_em_linha.html#autotoc_md9',1,'']]],
+  ['ação_203_20minimax_3',['Ação 3 - MiniMax',['../teste_jogo_do_galo.html#autotoc_md3',1,'']]],
+  ['ação_203_20torneio_20profundidade_4',['Ação 3 - Torneio Profundidade',['../teste_jogo_em_linha.html#autotoc_md10',1,'']]],
+  ['ação_204_20minimax_20com_20cortes_20alfa_20beta_5',['Ação 4 - MiniMax com cortes Alfa/Beta',['../teste_jogo_do_galo.html#autotoc_md4',1,'']]],
+  ['ação_204_20torneio_20iterativo_6',['Ação 4 - Torneio Iterativo',['../teste_jogo_em_linha.html#autotoc_md11',1,'']]],
+  ['ação_205_20explorar_20todo_20o_20espaço_20de_20estados_7',['Ação 5 - Explorar todo o espaço de estados',['../teste_jogo_do_galo.html#autotoc_md5',1,'']]],
+  ['ação_205_20torneio_20ruido_8',['Ação 5 - Torneio Ruido',['../teste_jogo_em_linha.html#autotoc_md12',1,'']]],
+  ['ação_206_20testes_20empíricos_9',['Ação 6 - Testes Empíricos',['../teste_jogo_do_galo.html#autotoc_md6',1,'']]],
+  ['ação_206_20torneio_20poda_10',['Ação 6 - Torneio Poda',['../teste_jogo_em_linha.html#autotoc_md13',1,'']]],
+  ['acao_11',['acao',['../classCJogoEmLinha.html#a25eb875c5fb35543ab74161e94a75ad4',1,'CJogoEmLinha::Acao()'],['../group__RedefinicaoOpcional.html#gacccf4fbb52126ba19bfc456c0c6d5214',1,'TProcuraConstrutiva::Acao(const char *acao)'],['../group__RedefinicaoSugerida.html#gacbc6e34f3a403d26d806f37b5cd739f6',1,'TProcuraConstrutiva::Acao(TNo sucessor)'],['../classCJogoDoGalo.html#ad83a5e5ee76941ffabc95893828a768e',1,'CJogoDoGalo::Acao()']]],
+  ['add_12',['Add',['../classTVector.html#a21e44df6bc9513d711e2047abc5abf3d',1,'TVector']]],
+  ['alfa_20beta_13',['Ação 4 - MiniMax com cortes Alfa/Beta',['../teste_jogo_do_galo.html#autotoc_md4',1,'']]],
+  ['algoritmo_14',['algoritmo',['../TProcuraConstrutiva_8h.html#a3c6c902bf1e6a69c702caca172718058aeabc5187dd423c46d6dc096c37b01136',1,'TProcuraConstrutiva.h']]],
+  ['algoritmos_20de_20procura_20cega_15',['Algoritmos de Procura Cega',['../group__ProcurasCegas.html',1,'']]],
+  ['algoritmos_20de_20procura_20informada_16',['Algoritmos de Procura Informada',['../group__ProcurasInformadas.html',1,'']]],
+  ['ascendentes_17',['ascendentes',['../TProcuraConstrutiva_8h.html#a72cc367d2463c44be31f085f2ff5fa88a108490c84e0c9531ca7c3d10979350d7',1,'TProcuraConstrutiva.h']]],
+  ['astar_18',['astar',['../TProcuraConstrutiva_8h.html#a80645d45a22bcc4a9a5a384051349d6cab7da1d3a25097669e595089206898b5e',1,'aStar:&#160;TProcuraConstrutiva.h'],['../group__ProcurasInformadas.html#ga37dd78e1a9a6742700728135f81964b4',1,'TProcuraConstrutiva::AStar()']]],
+  ['atividade_19',['atividade',['../TProcuraConstrutiva_8h.html#a9f2d53e364b23f725c2b357d0fd5eaf8a6d396cc6acfcd7a1ed2faa7a8fc82524',1,'TProcuraConstrutiva.h']]],
+  ['atual_20',['atual',['../classCListaNo.html#a6074c0df152d3e84e9d187f3e980e647',1,'CListaNo']]],
+  ['avaliacoes_21',['avaliacoes',['../group__VariaveisGlobais.html#ga1ce9b620e165ff360003cf0c21101470',1,'TProcuraConstrutiva::avaliacoes'],['../structSResultado.html#a27b2c9409c6740734d4436334b7e51ed',1,'SResultado::avaliacoes']]],
+  ['avaliacoesexcedido_22',['AvaliacoesExcedido',['../classTProcuraConstrutiva.html#ae69f7bb250c61cd3b73d85a3a2305600',1,'TProcuraConstrutiva']]]
 ];

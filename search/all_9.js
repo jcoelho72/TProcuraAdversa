@@ -1,4 +1,32 @@
 var searchData=
 [
-  ['_5fcrt_5fsecure_5fno_5fwarnings_0',['_CRT_SECURE_NO_WARNINGS',['../TProcuraConstrutiva_8h.html#af08ec37a8c99d747fb60fa15bc28678b',1,'TProcuraConstrutiva.h']]]
+  ['calculacaminho_0',['CalculaCaminho',['../classTProcuraConstrutiva.html#ab3d3ef92421595428a27deef2c3bb668',1,'TProcuraConstrutiva']]],
+  ['calcularheuristicas_1',['CalcularHeuristicas',['../classTProcuraConstrutiva.html#a640e74c9b6cd340761db671438ad679e',1,'TProcuraConstrutiva']]],
+  ['calculatorneio_2',['CalculaTorneio',['../classTProcuraConstrutiva.html#a589640c821d42dbcc476971995b511bf',1,'TProcuraConstrutiva']]],
+  ['caminho_3',['caminho',['../group__VariaveisGlobais.html#ga6dad497973fb467e2b2224f134b90443',1,'TProcuraConstrutiva']]],
+  ['casa_4',['casa',['../classCJogoEmLinha.html#a72fb49a4c59c54834e9bd5a936e1da14',1,'CJogoEmLinha::Casa(int i, int j)'],['../classCJogoEmLinha.html#ab07e98f06d80629870f010e9e234da81',1,'CJogoEmLinha::Casa(int i, int j, char valor)']]],
+  ['cega_5',['Algoritmos de Procura Cega',['../group__ProcurasCegas.html',1,'']]],
+  ['cjogodogalo_6',['cjogodogalo',['../classCJogoDoGalo.html',1,'CJogoDoGalo'],['../classCJogoDoGalo.html#ae89ee9625b01e078ebcb0596f8edd989',1,'CJogoDoGalo::CJogoDoGalo()']]],
+  ['cjogoemlinha_7',['cjogoemlinha',['../classCJogoEmLinha.html',1,'CJogoEmLinha'],['../classCJogoEmLinha.html#a88abc2e2195a32ac1b78db2f8733c923',1,'CJogoEmLinha::CJogoEmLinha()']]],
+  ['classe_8',['Variáveis globais à classe',['../group__VariaveisGlobais.html',1,'']]],
+  ['clistano_9',['clistano',['../classCListaNo.html#a59d3a16d38befa0eac15777568b49708',1,'CListaNo::CListaNo()'],['../classCListaNo.html',1,'CListaNo']]],
+  ['clonar_20o_20repositório_10',['clonar o repositório',['..//home/runner/work/TProcuraAdversa/TProcuraAdversa/TProcuraConstrutiva/README.md#autotoc_md33',1,'Opção 1 - Clonar o Repositório'],['../index.html#autotoc_md20',1,'Opção 1 - Clonar o Repositório']]],
+  ['codifica_11',['codifica',['../classCJogoDoGalo.html#a64044d4cc95bb6795f37c94e04f23d98',1,'CJogoDoGalo::Codifica()'],['../classCJogoEmLinha.html#a9c604cfb7ca0500e9f165a3a2b9b7a9d',1,'CJogoEmLinha::Codifica()'],['../group__RedefinicaoSugerida.html#ga5ff46e85c8f1394c2502f17025284c11',1,'TProcuraConstrutiva::Codifica()']]],
+  ['codigo_12',['Codigo',['../classCJogoEmLinha.html#a9c6c57f158fb470096dfbffb07da93a4',1,'CJogoEmLinha']]],
+  ['colocadosht_13',['colocadosHT',['../classTProcuraConstrutiva.html#af92e08783d2d2f6acc4c2f09e6354828',1,'TProcuraConstrutiva']]],
+  ['com_20cortes_20alfa_20beta_14',['Ação 4 - MiniMax com cortes Alfa/Beta',['../teste_jogo_do_galo.html#autotoc_md4',1,'']]],
+  ['como_20submódulo_15',['como submódulo',['../index.html#autotoc_md22',1,'Opção 3 - Utilizar como Submódulo'],['..//home/runner/work/TProcuraAdversa/TProcuraAdversa/TProcuraConstrutiva/README.md#autotoc_md35',1,'Opção 3 - Utilizar como Submódulo']]],
+  ['completa_16',['Completa',['../classCListaNo.html#a1895f082c5a47855d4cb6236b66fd8a0',1,'CListaNo']]],
+  ['completo_17',['completo',['../TProcuraConstrutiva_8h.html#a9f2d53e364b23f725c2b357d0fd5eaf8a7aaddfd6fd1a3d2ddcc82ed13813d45f',1,'completo:&#160;TProcuraConstrutiva.h'],['../classTProcuraAdversa.html#a68b3eb30c6967f5694b4d1f9f50c434c',1,'TProcuraAdversa::completo']]],
+  ['configuracao_18',['configuracao',['../structSResultado.html#a7840ae016dde869c39dc52a4f0629e7f',1,'SResultado']]],
+  ['configuracaoatual_19',['ConfiguracaoAtual',['../classTProcuraConstrutiva.html#a4c50b21dc4dc6a689af754dfce6e272f',1,'TProcuraConstrutiva']]],
+  ['configuracoes_20',['configuracoes',['../group__VariaveisGlobais.html#ga80c8e869e8ac8d64820ce8570e44cc8e',1,'TProcuraConstrutiva']]],
+  ['contained_21',['Contained',['../classTVector.html#a18bd3d664640de4df58f15e0bd8955ce',1,'TVector']]],
+  ['copiar_22',['copiar',['../classCJogoEmLinha.html#ab11bd9cb65db20489151a1935df9060e',1,'CJogoEmLinha::Copiar()'],['../classCJogoDoGalo.html#ae674e5a8774f6c0eb2533c68342e185f',1,'CJogoDoGalo::Copiar()'],['../group__RedefinicaoMandatoria.html#ga92eb7af76e68a20fe542afb459e7d642',1,'TProcuraConstrutiva::Copiar()']]],
+  ['cortealfabeta_23',['CorteAlfaBeta',['../classTProcuraAdversa.html#a816a0a735f6f4379338a330e0ff19fa5',1,'TProcuraAdversa']]],
+  ['cortes_20alfa_20beta_24',['Ação 4 - MiniMax com cortes Alfa/Beta',['../teste_jogo_do_galo.html#autotoc_md4',1,'']]],
+  ['count_25',['count',['../classTVector.html#a427bf294df0ee2bf96e30d278c08389f',1,'TVector::Count()'],['../classTVector.html#aeb1c1431c384b44d8f28ea38b10135ec',1,'TVector::Count(int value)']]],
+  ['custo_26',['custo',['../structSResultado.html#acf4e3cc238660d5ab1ae933d9813b79c',1,'SResultado::custo'],['../group__VariaveisEstado.html#ga2ee0de16d01f9520b20807f900bf69d0',1,'TProcuraConstrutiva::custo']]],
+  ['custoht_27',['custoHT',['../classTProcuraConstrutiva.html#af40b12ca395037ca10b1be13c4f5e5ab',1,'TProcuraConstrutiva']]],
+  ['custouniforme_28',['custouniforme',['../group__ProcurasCegas.html#ga2343fafdecfd55b69c0ffb71e8f9426b',1,'TProcuraConstrutiva::CustoUniforme()'],['../TProcuraConstrutiva_8h.html#a80645d45a22bcc4a9a5a384051349d6ca5beec59c012aa51b2ff4e7b5afec885d',1,'custoUniforme:&#160;TProcuraConstrutiva.h']]]
 ];

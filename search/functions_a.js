@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['main_0',['main',['../TProcuraConstrutiva_2Teste_2teste_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;teste.cpp'],['../Teste_2teste_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;teste.cpp']]],
+  ['main_0',['main',['../teste_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'teste.cpp']]],
   ['maiorameaca_1',['MaiorAmeaca',['../classTProcuraAdversa.html#a1869e0545c7fe2dd0d38f5f3c860c61f',1,'TProcuraAdversa']]],
   ['melhorprimeiro_2',['MelhorPrimeiro',['../group__ProcurasInformadas.html#gaebb84182343041bc276e4ceceb4b13aa',1,'TProcuraConstrutiva']]],
   ['melhorresultado_3',['MelhorResultado',['../classTProcuraConstrutiva.html#a8f3b2ddaa879df23c5c9921cdfff0dd8',1,'TProcuraConstrutiva']]],
@@ -11,6 +11,6 @@ var searchData=
   ['mostrarcaminho_8',['MostrarCaminho',['../classTProcuraConstrutiva.html#a51a3757ad4f4041833c7957276d76ab9',1,'TProcuraConstrutiva']]],
   ['mostrarconfiguracoes_9',['MostrarConfiguracoes',['../classTProcuraConstrutiva.html#a9d4bc5b86186bcba9cbee82588ada2fb',1,'TProcuraConstrutiva']]],
   ['mostrarelatorio_10',['MostraRelatorio',['../classTProcuraConstrutiva.html#ac7e1356d8cd516f18380d4f4c5730c2b',1,'TProcuraConstrutiva']]],
-  ['mostrarsolucao_11',['mostrarsolucao',['../classCOitoDamas.html#acda7651f84323201b3a57699daf55646',1,'COitoDamas::MostrarSolucao()'],['../classCParticao.html#a9a3087a5b0bd33ff2fabf2aef66c73a9',1,'CParticao::MostrarSolucao()'],['../classCPuzzle8.html#a251d6029c7b33366a000ce84aee4d2ed',1,'CPuzzle8::MostrarSolucao()'],['../group__RedefinicaoOpcional.html#ga74b4c5766a2b65bdb4c3019523c1508f',1,'TProcuraConstrutiva::MostrarSolucao(void)']]],
+  ['mostrarsolucao_11',['MostrarSolucao',['../group__RedefinicaoOpcional.html#ga74b4c5766a2b65bdb4c3019523c1508f',1,'TProcuraConstrutiva']]],
   ['mostrartorneio_12',['MostrarTorneio',['../classTProcuraConstrutiva.html#a12b8afb0fe836f489ada61cb33eb5dee',1,'TProcuraConstrutiva']]]
 ];

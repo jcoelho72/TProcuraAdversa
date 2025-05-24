@@ -41,12 +41,6 @@ var NAVTREE =
     [ "Licença", "index.html#autotoc_md26", null ],
     [ "Teste Jogo do Galo", "teste_jogo_do_galo.html", null ],
     [ "Teste Jogo Em Linha", "teste_jogo_em_linha.html", null ],
-    [ "Teste 8 Damas", "teste_8damas.html", null ],
-    [ "Teste Artificial", "teste_artificial.html", null ],
-    [ "Teste Aspirador - Parte 1/2", "teste_aspirador1.html", null ],
-    [ "Teste Aspirador - Parte 2/2", "teste_aspirador2.html", null ],
-    [ "Teste Particao", "teste_particao.html", null ],
-    [ "Teste Puzzle 8", "teste_puzzle8.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -54,7 +48,7 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
@@ -74,9 +68,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"Aspirador_8cpp.html",
-"classCPuzzle8.html#ad0638a270ace9056ffba040d2479fd5a",
-"structSParametrosEspaco.html#ab14626a36f514fb7b02baaa1cde43e7f"
+"JogoDoGalo_8cpp.html",
+"functions.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

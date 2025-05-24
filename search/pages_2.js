@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['8_0',['Teste Puzzle 8',['../teste_puzzle8.html',1,'']]],
-  ['8_20damas_1',['Teste 8 Damas',['../teste_8damas.html',1,'']]]
+  ['galo_0',['Teste Jogo do Galo',['../teste_jogo_do_galo.html',1,'']]]
 ];

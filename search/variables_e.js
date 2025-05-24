@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['salas_0',['salas',['../classCAspirador.html#ac118e781b7b1296f09d5aec94560b00e',1,'CAspirador']]],
-  ['sementealeatoria_1',['sementeAleatoria',['../structSParametrosEspaco.html#a81f440d64e50396bdd359e516b91075c',1,'SParametrosEspaco']]],
-  ['solucao_2',['solucao',['../group__VariaveisGlobais.html#gadb0d41114016ec069543b3494b0e0196',1,'TProcuraConstrutiva']]]
+  ['tabuleiro_0',['tabuleiro',['../classCJogoDoGalo.html#a4a45abc068aac13338f18d18c8bd235d',1,'CJogoDoGalo::tabuleiro'],['../classCJogoEmLinha.html#a8cba76145d91e14fa042258a7da7b938',1,'CJogoEmLinha::tabuleiro']]],
+  ['tamanhocodificado_1',['tamanhoCodificado',['../group__VariaveisGlobais.html#ga514dd29e1b8b06e0ecdf054c992c716b',1,'TProcuraConstrutiva']]],
+  ['tempo_2',['tempo',['../structSResultado.html#a09da76704f0e86ab31de795caa2163b4',1,'SResultado']]],
+  ['tipo_3',['tipo',['../structSValorEstado.html#a50ab452ee030441b761efc29dd223eaa',1,'SValorEstado']]]
 ];
