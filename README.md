@@ -54,9 +54,14 @@ Russell, S. J., & Norvig, P. (2021). Artificial Intelligence: A Modern Approach 
 Clonar o projeto, compilar e executar. 
 
 ### Opção 1 - Clonar o Repositório 
+
 ```bash
 git clone https://github.com/jcoelho72/TProcuraAdversa.git
 ```
+ou
+
+Aceder a [página do repositório](https://github.com/jcoelho72/TProcuraAdversa/) e clique em **"Code" → "Open with Visual Studio"**.
+
 ### Opção 2 - Download Manual
 
 Aceder a [página do repositório](https://github.com/jcoelho72/TProcuraAdversa/) e clique em **"Code" → "Download ZIP"**.
