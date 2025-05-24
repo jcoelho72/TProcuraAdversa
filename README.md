@@ -9,7 +9,7 @@ Uma coleção de algoritmos e implementações para **procuras adversas**.
 
 A documentação completa está disponível em:  
 👉 [TProcuraAdversa - Documentação](https://jcoelho72.github.io/TProcuraAdversa/index.html)
-
+👉 [TProcuraConstrutiva - Documentação](https://jcoelho72.github.io/TProcuraConstrutiva/index.html)
 
 ## Sumário
 
