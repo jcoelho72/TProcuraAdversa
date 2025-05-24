@@ -13,6 +13,7 @@ int main(int argc, char* argv[])
 	CJogoDoGalo jdg;
 	CJogoEmLinha emLinha;
 
+
 	std::locale::global(std::locale(""));
 
 	printf("\n\
