@@ -66,7 +66,13 @@ Aceder a [página do repositório](https://github.com/jcoelho72/TProcuraAdversa/
 
 Aceder a [página do repositório](https://github.com/jcoelho72/TProcuraAdversa/) e clique em **"Code" → "Download ZIP"**.
 
-Extraia os arquivos e siga as instruções de compilação (por exemplo, via Makefile, Visual Studio etc., conforme seu ambiente).
+Extraia os arquivos. Em seguida, aceda ao [repositório TProcuraConstrutiva](https://github.com/jcoelho72/TProcuraConstrutiva/) e clique em **"Code" → "Download ZIP"**.
+
+Extraia os arquivos do TProcuraConstrutiva para uma subpasta dentro do diretório extraído do TProcuraAdversa, 
+de forma que os arquivos do submódulo fiquem acessíveis para a compilação.
+
+Siga as instruções de compilação disponíveis (por exemplo, via Makefile, Visual Studio etc., conforme o seu ambiente).
+
 
 ### Opção 3 - Utilizar como Submódulo
 
