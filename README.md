@@ -80,6 +80,7 @@ Para integrar o TProcuraAdversa como parte de outro projeto, utilize um submódu
 
 ```bash
 git submodule add https://github.com/jcoelho72/TProcuraAdversa.git
+git submodule update --init --recursive
 ```
 Essa opção é útil se pretender manter o código atualizado.
 
